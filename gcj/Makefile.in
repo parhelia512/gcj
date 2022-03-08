@@ -56,30 +56,8 @@ subdir = gcj
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(srcdir)/libgcj-config.h.in $(gcj_HEADERS) $(toolgcj_HEADERS)
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/libltdl/acinclude.m4 \
-	$(top_srcdir)/../config/acx.m4 \
-	$(top_srcdir)/../config/depstand.m4 \
-	$(top_srcdir)/../config/enable.m4 \
-	$(top_srcdir)/../config/gxx-include-dir.m4 \
-	$(top_srcdir)/../config/iconv.m4 \
-	$(top_srcdir)/../config/lcmessage.m4 \
-	$(top_srcdir)/../config/ld-symbolic.m4 \
-	$(top_srcdir)/../config/lead-dot.m4 \
-	$(top_srcdir)/../config/lib-ld.m4 \
-	$(top_srcdir)/../config/lib-link.m4 \
-	$(top_srcdir)/../config/lib-prefix.m4 \
-	$(top_srcdir)/../config/libstdc++-raw-cxx.m4 \
-	$(top_srcdir)/../config/lthostflags.m4 \
-	$(top_srcdir)/../config/multi.m4 \
-	$(top_srcdir)/../config/no-executables.m4 \
-	$(top_srcdir)/../config/override.m4 \
-	$(top_srcdir)/../config/tls.m4 \
-	$(top_srcdir)/../config/unwind_ipinfo.m4 \
-	$(top_srcdir)/../libtool.m4 $(top_srcdir)/../ltgcc.m4 \
-	$(top_srcdir)/../ltoptions.m4 $(top_srcdir)/../ltsugar.m4 \
-	$(top_srcdir)/../ltversion.m4 $(top_srcdir)/../lt~obsolete.m4 \
-	$(top_srcdir)/mingwld.m4 $(top_srcdir)/pkg.m4 \
-	$(top_srcdir)/shlibpath.m4 $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/config/sjlj.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 CONFIG_HEADER = $(top_builddir)/include/config.h libgcj-config.h
@@ -230,16 +208,18 @@ LIBMATHSPEC = @LIBMATHSPEC@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBSTDCXXSPEC = @LIBSTDCXXSPEC@
-LIBSTDCXX_RAW_CXX_CXXFLAGS = @LIBSTDCXX_RAW_CXX_CXXFLAGS@
-LIBSTDCXX_RAW_CXX_LDFLAGS = @LIBSTDCXX_RAW_CXX_LDFLAGS@
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
+LTDLDEPS = @LTDLDEPS@
+LTDLINCL = @LTDLINCL@
 LTLIBICONV = @LTLIBICONV@
 LTLIBOBJS = @LTLIBOBJS@
+LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAINT = @MAINT@
 MAKE = @MAKE@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 NM = @NM@
 NMEDIT = @NMEDIT@
@@ -257,7 +237,6 @@ PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PERL = @PERL@
-PKG_CONFIG = @PKG_CONFIG@
 PLATFORM = @PLATFORM@
 RANLIB = @RANLIB@
 SDK_BIN_DIR = @SDK_BIN_DIR@
@@ -295,6 +274,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -308,9 +288,7 @@ bindir = @bindir@
 build = @build@
 build_alias = @build_alias@
 build_cpu = @build_cpu@
-build_libsubdir = @build_libsubdir@
 build_os = @build_os@
-build_subdir = @build_subdir@
 build_vendor = @build_vendor@
 builddir = @builddir@
 datadir = @datadir@
@@ -323,14 +301,12 @@ extra_ldflags = @extra_ldflags@
 extra_ldflags_libjava = @extra_ldflags_libjava@
 gcc_suffix = @gcc_suffix@
 gcjsubdir = @gcjsubdir@
-gxx_include_dir = @gxx_include_dir@
 here = @here@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_exeext = @host_exeext@
 host_os = @host_os@
-host_subdir = @host_subdir@
 host_vendor = @host_vendor@
 htmldir = @htmldir@
 includedir = @includedir@
@@ -338,14 +314,11 @@ infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
-libstdcxx_incdir = @libstdcxx_incdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_host_flags = @lt_host_flags@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 mkinstalldirs = @mkinstalldirs@
-multi_basedir = @multi_basedir@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
@@ -353,6 +326,7 @@ program_transform_name = @program_transform_name@
 psdir = @psdir@
 python_mod_dir = @python_mod_dir@
 python_mod_dir_expanded = @python_mod_dir_expanded@
+runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -365,7 +339,6 @@ target_cpu = @target_cpu@
 # autoconf2.13's target_alias
 target_noncanonical = @target_noncanonical@
 target_os = @target_os@
-target_subdir = @target_subdir@
 target_vendor = @target_vendor@
 toolexecdir = @toolexecdir@
 toolexeclibdir = @toolexeclibdir@

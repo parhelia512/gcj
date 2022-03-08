@@ -7,11 +7,11 @@ dnl define([AC_CACHE_LOAD], )dnl
 dnl define([AC_CACHE_SAVE], )dnl
 
 AC_INIT([GNU Classpath],[0.99.1-pre],[classpath@gnu.org],[classpath])
-AC_CONFIG_SRCDIR(java/lang/System.java)
+AC_CONFIG_SRCDIR(java/lauang/System.java)
 AC_CONFIG_MACRO_DIR([m4])
 
 dnl GCJ LOCAL
-AC_CONFIG_AUX_DIR(../..)
+AC_CONFIG_AUX_DIR(../)
 dnl END GCJ LOCAL
 
 AC_CANONICAL_TARGET
@@ -45,7 +45,7 @@ AM_CONDITIONAL(GENINSRC, test x$generated_files_in_srcdir = xyes)
 dnl END GCJ LOCAL
 
 # Find the rest of the source tree framework.
-AM_ENABLE_MULTILIB(, ../..)
+# AM_ENABLE_MULTILIB(, ../..)
 
 AM_CONDITIONAL(INSTALL_BINARIES, test -z "${with_multisubdir}")
 
@@ -349,7 +349,7 @@ AC_ARG_WITH([native-libdir],
 	     nativeexeclibdir=${withval}
 	    ],
 	    [
-	     nativeexeclibdir='${toolexeclibdir}/gcj-'`cat ${srcdir}/../../gcc/BASE-VER`-`awk -F: '/^[[^#]].*:/ { print $1 }' ${srcdir}/../libtool-version`
+	     nativeexeclibdir='${toolexeclibdir}/gcj-'`cat ${srcdir}/../gcj/BASE-VER`-`awk -F: '/^[[^#]].*:/ { print $1 }' ${srcdir}/libtool-version`
 	    ])
 
 AC_SUBST(nativeexeclibdir)

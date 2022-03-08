@@ -1,14 +1,16 @@
 dnl # Process this with autoconf to create configure
 
-sinclude(../config/sjlj.m4)
+sinclude(config/sjlj.m4)
 
-AC_PREREQ(2.64)
+AC_PREREQ([2.71])
 # Still use "libjava" here to placate dejagnu.
-AC_INIT([libjava], [version-unused],, [libjava])
+AC_INIT([libjava],[version-unused],[],[libjava])
 
 AC_CONFIG_SRCDIR(java/lang/System.java)
 
-GCC_TOPLEV_SUBDIRS
+AM_GNU_GETTEXT_VERSION(0.21-1)
+
+# GCC_TOPLEV_SUBDIRS
 
 # We use these options to decide which functions to include.
 AC_ARG_WITH(target-subdir,
@@ -19,15 +21,15 @@ AC_ARG_WITH(target-subdir,
 # --with-target-subdir, --with-multisrctop, --with-multisubdir
 
 # Find the rest of the source tree framework.
-AM_ENABLE_MULTILIB(, ..)
+# AM_ENABLE_MULTILIB(, ..)
 
-AC_CANONICAL_SYSTEM
-_GCC_TOPLEV_NONCANONICAL_BUILD
-_GCC_TOPLEV_NONCANONICAL_TARGET
+AC_CANONICAL_TARGET
+# _GCC_TOPLEV_NONCANONICAL_BUILD
+# _GCC_TOPLEV_NONCANONICAL_TARGET
 
 AC_SUBST(target_noncanonical)
 
-GCC_LIBSTDCXX_RAW_CXX_FLAGS
+# GCC_LIBSTDCXX_RAW_CXX_FLAGS
 
 # This works around the fact that libtool configuration may change LD
 # for this particular configuration, but some shells, instead of
@@ -248,7 +250,7 @@ AC_SUBST(LIBGCJ_LD_EXPORT_ALL)
 
 # Only use libltdl for non-newlib builds.
 if test "x${with_newlib}" = "x" || test "x${with_newlib}" = "xno"; then
-   AC_LTDL_SHLIBPATH
+   LT_SYS_MODULE_PATH
 fi
 
 AC_CONFIG_HEADERS([include/config.h gcj/libgcj-config.h])
@@ -413,7 +415,6 @@ which_gcj=default
 host_exeext=${ac_exeext}
 GCJ_FOR_ECJX='$(GCJ)'
 GCC_FOR_ECJX='$(CXX)'
-built_gcc_dir="`cd ${builddotdot}/../../${host_subdir}/gcc && ${PWDCMD-pwd}`"
 if test -n "${with_cross_host}"; then
   # We are being configured with a cross compiler. We can't
   # use ac_exeext, because that is for the target platform.
@@ -427,7 +428,7 @@ if test -n "${with_cross_host}"; then
      ;;
   esac
   host_exeext=${cross_host_exeext}
-  if test -x "${built_gcc_dir}/gcj${cross_host_exeext}"; then
+  if test -x "$./gcj${cross_host_exeext}"; then
      if test x"$build_noncanonical" = x"$with_cross_host"; then
         # Ordinary cross (host!=target and host=build)
         which_gcj=built
@@ -440,7 +441,7 @@ if test -n "${with_cross_host}"; then
   fi
 else
   # We are being configured with a native or crossed-native compiler
-  if test -x "${built_gcc_dir}/gcj${ac_exeext}"; then
+  if test -x "$./gcj${ac_exeext}"; then
      if test x"$build" = x"$host"; then
         # True native build (host=target and host=build)
         which_gcj=built
@@ -550,8 +551,12 @@ dnl --enable-regen-headers?
 
 # Only use libltdl for non-newlib builds.
 if test "x${with_newlib}" = "x" || test "x${with_newlib}" = "xno"; then
-   AC_LIBLTDL_CONVENIENCE
-   AC_LIBTOOL_DLOPEN
+   _LT_CONFIG_LTDL_DIR([m4_default([], [libltdl])])
+_LTDL_CONVENIENCE
+   _LT_SET_OPTION([LT_INIT],[dlopen])
+m4_warn([obsolete],[AC_LIBTOOL_DLOPEN: Remove this warning and the call to _LT_SET_OPTION when you
+put the 'dlopen' option into LT_INIT's first parameter.])
+
    DIRLTDL=libltdl
    AC_DEFINE(USE_LTDL, 1, [Define if libltdl is in use.])
    # Sigh.  Libtool's macro doesn't do the right thing.
@@ -563,7 +568,7 @@ fi
 AC_SUBST(INCLTDL)
 AC_SUBST(LIBLTDL)
 AC_SUBST(DIRLTDL)
-AC_PROG_LIBTOOL
+LT_INIT
 ACX_LT_HOST_FLAGS
 AM_PROG_GCJ
 AM_PROG_CC_C_O
@@ -1395,15 +1400,16 @@ else
 
    # Test for Gtk stuff, if asked for.
    if test "$use_gtk_awt" = yes; then
-      PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.4)
+      # the PKG_CHECK_MODULES parts are removed because they break configuration on msys2, reminder to uncomment them for master
+      # PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.4)
       AC_SUBST(GTK_CFLAGS)
       AC_SUBST(GTK_LIBS)
 
-      PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.4 gthread-2.0 >= 2.4)
+      # PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.4 gthread-2.0 >= 2.4)
       AC_SUBST(GLIB_CFLAGS)
       AC_SUBST(GLIB_LIBS)
 
-      PKG_CHECK_MODULES(LIBART, libart-2.0 >= 2.1)
+      # PKG_CHECK_MODULES(LIBART, libart-2.0 >= 2.1)
       AC_SUBST(LIBART_CFLAGS)
       AC_SUBST(LIBART_LIBS)
 
@@ -1464,7 +1470,7 @@ if test ! -f gnu/classpath/Configuration.java; then
   fi
 fi
 
-LT_AC_PROG_GCJ
+LT_PROG_GCJ
 
 # Now remove it.
 rm -f gnu/classpath/Configuration.java
@@ -1537,7 +1543,7 @@ AC_SUBST(toolexecmainlibdir)
 AC_SUBST(toolexeclibdir)
 
 # Determine gcj and libgcj version number.
-gcjversion=`cat "$srcdir/../gcc/BASE-VER"`
+gcjversion=`cat "$srcdir/gcj/BASE-VER"`
 libgcj_soversion=`awk -F: '/^[[^#]].*:/ { print $1 }' $srcdir/libtool-version`
 GCJVERSION=$gcjversion
 AC_SUBST(GCJVERSION)
@@ -1763,9 +1769,7 @@ AC_CACHE_CHECK([whether ld supports anonymous version scripts],
      CFLAGS="$CFLAGS -fPIC";
      LDFLAGS="$LDFLAGS -shared -Wl,--version-script,conftest.map"
      echo '{ global: globalsymb*; local: *; };' > conftest.map
-     AC_TRY_LINK(void globalsymbol (void) {} void localsymbol (void) {},,
-	         [libjava_cv_anon_version_script=gnu],
-		 [libjava_cv_anon_version_script=no])
+     AC_LINK_IFELSE([AC_LANG_PROGRAM([[void globalsymbol (void) {} void localsymbol (void) {}]], [[]])],[libjava_cv_anon_version_script=gnu],[libjava_cv_anon_version_script=no])
      if test x$libjava_cv_anon_version_script = xno; then
        case "$target_os" in
          solaris2*)
@@ -1773,8 +1777,7 @@ AC_CACHE_CHECK([whether ld supports anonymous version scripts],
            LDFLAGS="$LDFLAGS -shared -Wl,-M,conftest.map"
            # Sun ld doesn't understand wildcards here.
            echo '{ global: globalsymbol; local: *; };' > conftest.map
-           AC_TRY_LINK(void globalsymbol (void) {} void localsymbol (void) {},,
-	 	       [libjava_cv_anon_version_script=sun], [])
+           AC_LINK_IFELSE([AC_LANG_PROGRAM([[void globalsymbol (void) {} void localsymbol (void) {}]], [[]])],[libjava_cv_anon_version_script=sun],[])
            ;;
        esac
      fi

@@ -43,9 +43,6 @@
 /* Define if you have u_int32_t */
 #undef HAVE_BSD_INT32_DEFINED
 
-/* Define to 1 if the target assembler supports thread-local storage. */
-#undef HAVE_CC_TLS
-
 /* Define to 1 if you have the `chmod' function. */
 #undef HAVE_CHMOD
 
@@ -101,9 +98,6 @@
 /* Define to 1 if you have the `getifaddrs' function. */
 #undef HAVE_GETIFADDRS
 
-/* Define if _Unwind_GetIPInfo is available. */
-#undef HAVE_GETIPINFO
-
 /* Define to 1 if you have the `getpwuid_r' function. */
 #undef HAVE_GETPWUID_R
 
@@ -116,7 +110,7 @@
 /* Define if you have the 'gmtime_r' function */
 #undef HAVE_GMTIME_R
 
-/* Define if you have the iconv() function. */
+/* Define if you have the iconv() function and it works. */
 #undef HAVE_ICONV
 
 /* Define to 1 if you have the <ifaddrs.h> header file. */
@@ -149,9 +143,6 @@
 /* Define to 1 if you have the <langinfo.h> header file. */
 #undef HAVE_LANGINFO_H
 
-/* Define if your <locale.h> file defines LC_MESSAGES. */
-#undef HAVE_LC_MESSAGES
-
 /* Define to 1 if you have the <locale.h> header file. */
 #undef HAVE_LOCALE_H
 
@@ -175,9 +166,6 @@
 
 /* Define to 1 if you have the `memmove' function. */
 #undef HAVE_MEMMOVE
-
-/* Define to 1 if you have the <memory.h> header file. */
-#undef HAVE_MEMORY_H
 
 /* Define to 1 if you have the `mkdir' function. */
 #undef HAVE_MKDIR
@@ -248,6 +236,9 @@
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
 
+/* Define to 1 if you have the <stdio.h> header file. */
+#undef HAVE_STDIO_H
+
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
 
@@ -269,7 +260,7 @@
 /* Define if struct ip_mreq is defined in netinet/in.h. */
 #undef HAVE_STRUCT_IP_MREQ
 
-/* Define to 1 if `struct tm' is a member of `tm_zone'. */
+/* Define to 1 if `tm_zone' is a member of `struct tm'. */
 #undef HAVE_STRUCT_TM_TM_ZONE
 
 /* Define to 1 if you have the <sys/config.h> header file. */
@@ -307,9 +298,6 @@
 
 /* Define if global 'timezone' exists. */
 #undef HAVE_TIMEZONE
-
-/* Define to 1 if the target supports thread-local storage. */
-#undef HAVE_TLS
 
 /* Define to 1 if your `struct tm' has `tm_zone'. Deprecated, use
    `HAVE_STRUCT_TM_TM_ZONE' instead. */
@@ -361,9 +349,6 @@
 /* Define if <inttypes.h> is available */
 #undef JV_HAVE_INTTYPES_H
 
-/* Indicate that linker is not able to 8-byte align static data */
-#undef JV_LINKER_CANNOT_8BYTE_ALIGN_STATICS
-
 /* Compatibility version string */
 #undef JV_VERSION
 
@@ -376,12 +361,11 @@
 /* Define if using POSIX threads on Linux. */
 #undef LINUX_THREADS
 
-/* Define to the name of the environment variable that determines the dynamic
-   library search path. */
-#undef LTDL_SHLIBPATH_VAR
+/* Define to the name of the environment variable that determines the run-time
+   module search path. */
+#undef LT_MODULE_PATH_VAR
 
-/* Define to the sub-directory in which libtool stores uninstalled libraries.
-   */
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
 #undef LT_OBJDIR
 
 /* Define if MinGW libgcj uses the Windows UNICODE OS API. */
@@ -427,7 +411,9 @@
    calls by caching thread IDs in a hashtable. */
 #undef SLOW_PTHREAD_SELF
 
-/* Define to 1 if you have the ANSI C header files. */
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
 #undef STDC_HEADERS
 
 /* Define if struct tm has tm_gmtoff field. */

@@ -2,10 +2,10 @@
 
 AUTOMAKE_OPTIONS = foreign subdir-objects
 
-ACLOCAL_AMFLAGS = -I . -I .. -I ../config -I libltdl
+ACLOCAL_AMFLAGS = -I . -I ./config -I libltdl
 
 # May be used by various substitution variables.
-gcc_version := $(shell cat $(top_srcdir)/../gcc/BASE-VER)
+gcc_version := $(shell cat $(srcdir)/gcj/BASE-VER)
 export gcc_version
 
 SUBDIRS = $(DIRLTDL) gcj include classpath
@@ -1637,9 +1637,9 @@ if ANONVERSCRIPT_SUN
 .SECONDEXPANSION:
 
 %.ver-sun : $(srcdir)/libgcj.ver \
-		$(top_srcdir)/../contrib/make_sunver.pl \
+		$(srcdir)/contrib/make_sunver.pl \
 		$$($$(basename $$@)_la_OBJECTS) $$($$(basename $$@)_la_LIBADD)
-	perl $(top_srcdir)/../contrib/make_sunver.pl \
+	perl $(srcdir)/contrib/make_sunver.pl \
 	  $(srcdir)/libgcj.ver \
 	 `echo $($(basename $@)_la_OBJECTS) $($(basename $@)_la_LIBADD) | \
 	    sed 's,\([^/ 	]*\)\.l\([ao]\),.libs/\1.\2,g'` \

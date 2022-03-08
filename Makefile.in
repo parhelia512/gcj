@@ -81,9 +81,9 @@ target_triplet = @target@
 @BUILD_SUBLIBS_TRUE@am__append_21 = libgcj-noncore.la
 DIST_COMMON = $(srcdir)/sources.am NEWS README ChangeLog THANKS \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
-	$(top_srcdir)/configure $(am__configure_deps) \
-	$(srcdir)/../mkinstalldirs $(srcdir)/libgcj.pc.in \
-	$(srcdir)/libgcj.spec.in $(srcdir)/libgcj-test.spec.in \
+	$(top_srcdir)/configure $(am__configure_deps) mkinstalldirs \
+	$(srcdir)/libgcj.pc.in $(srcdir)/libgcj.spec.in \
+	$(srcdir)/libgcj-test.spec.in \
 	$(top_srcdir)/contrib/aotcompile.py.in \
 	$(top_srcdir)/contrib/aot-compile.in \
 	$(top_srcdir)/contrib/aot-compile-rpm.in \
@@ -92,8 +92,7 @@ DIST_COMMON = $(srcdir)/sources.am NEWS README ChangeLog THANKS \
 	$(top_srcdir)/scripts/jar.in \
 	$(top_srcdir)/java/lang/nat${PLATFORM}Process.cc \
 	$(top_srcdir)/gnu/java/nio/natVMPipe${PLATFORM}.cc \
-	$(top_srcdir)/gnu/java/nio/natVMSelector${PLATFORM}.cc \
-	$(srcdir)/../depcomp
+	$(top_srcdir)/gnu/java/nio/natVMSelector${PLATFORM}.cc depcomp
 @MAINTAINER_MODE_TRUE@@NATIVE_TRUE@am__append_22 = gen-from-JIS
 @BUILD_SUBLIBS_TRUE@am__append_23 = libgcj-noncore.la
 @BUILD_SUBLIBS_TRUE@am__append_24 = libgcj-noncore.la
@@ -104,30 +103,8 @@ DIST_COMMON = $(srcdir)/sources.am NEWS README ChangeLog THANKS \
 @XLIB_AWT_TRUE@am__append_29 = $(xlib_nat_headers)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/libltdl/acinclude.m4 \
-	$(top_srcdir)/../config/acx.m4 \
-	$(top_srcdir)/../config/depstand.m4 \
-	$(top_srcdir)/../config/enable.m4 \
-	$(top_srcdir)/../config/gxx-include-dir.m4 \
-	$(top_srcdir)/../config/iconv.m4 \
-	$(top_srcdir)/../config/lcmessage.m4 \
-	$(top_srcdir)/../config/ld-symbolic.m4 \
-	$(top_srcdir)/../config/lead-dot.m4 \
-	$(top_srcdir)/../config/lib-ld.m4 \
-	$(top_srcdir)/../config/lib-link.m4 \
-	$(top_srcdir)/../config/lib-prefix.m4 \
-	$(top_srcdir)/../config/libstdc++-raw-cxx.m4 \
-	$(top_srcdir)/../config/lthostflags.m4 \
-	$(top_srcdir)/../config/multi.m4 \
-	$(top_srcdir)/../config/no-executables.m4 \
-	$(top_srcdir)/../config/override.m4 \
-	$(top_srcdir)/../config/tls.m4 \
-	$(top_srcdir)/../config/unwind_ipinfo.m4 \
-	$(top_srcdir)/../libtool.m4 $(top_srcdir)/../ltgcc.m4 \
-	$(top_srcdir)/../ltoptions.m4 $(top_srcdir)/../ltsugar.m4 \
-	$(top_srcdir)/../ltversion.m4 $(top_srcdir)/../lt~obsolete.m4 \
-	$(top_srcdir)/mingwld.m4 $(top_srcdir)/pkg.m4 \
-	$(top_srcdir)/shlibpath.m4 $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/config/sjlj.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
@@ -494,7 +471,7 @@ am_jv_convert_OBJECTS =
 jv_convert_OBJECTS = $(am_jv_convert_OBJECTS)
 SCRIPTS = $(bin_SCRIPTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/include -I$(top_builddir)/gcj
-depcomp = $(SHELL) $(top_srcdir)/../depcomp
+depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -656,16 +633,18 @@ LIBMATHSPEC = @LIBMATHSPEC@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBSTDCXXSPEC = @LIBSTDCXXSPEC@
-LIBSTDCXX_RAW_CXX_CXXFLAGS = @LIBSTDCXX_RAW_CXX_CXXFLAGS@
-LIBSTDCXX_RAW_CXX_LDFLAGS = @LIBSTDCXX_RAW_CXX_LDFLAGS@
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
+LTDLDEPS = @LTDLDEPS@
+LTDLINCL = @LTDLINCL@
 LTLIBICONV = @LTLIBICONV@
 LTLIBOBJS = @LTLIBOBJS@
+LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAINT = @MAINT@
 MAKE = @MAKE@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 NM = nm
 NMEDIT = @NMEDIT@
@@ -683,7 +662,6 @@ PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
 PERL = @PERL@
-PKG_CONFIG = @PKG_CONFIG@
 PLATFORM = @PLATFORM@
 RANLIB = @RANLIB@
 SDK_BIN_DIR = @SDK_BIN_DIR@
@@ -721,6 +699,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -734,9 +713,7 @@ bindir = @bindir@
 build = @build@
 build_alias = @build_alias@
 build_cpu = @build_cpu@
-build_libsubdir = @build_libsubdir@
 build_os = @build_os@
-build_subdir = @build_subdir@
 build_vendor = @build_vendor@
 builddir = @builddir@
 datadir = @datadir@
@@ -749,14 +726,12 @@ extra_ldflags = @extra_ldflags@
 extra_ldflags_libjava = @extra_ldflags_libjava@
 gcc_suffix = @gcc_suffix@
 gcjsubdir = @gcjsubdir@
-gxx_include_dir = @gxx_include_dir@
 here = @here@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_exeext = @host_exeext@
 host_os = @host_os@
-host_subdir = @host_subdir@
 host_vendor = @host_vendor@
 htmldir = @htmldir@
 includedir = @includedir@
@@ -764,14 +739,11 @@ infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
-libstdcxx_incdir = @libstdcxx_incdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_host_flags = @lt_host_flags@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 mkinstalldirs = @mkinstalldirs@
-multi_basedir = @multi_basedir@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
@@ -779,6 +751,7 @@ program_transform_name = @program_transform_name@
 psdir = @psdir@
 python_mod_dir = @python_mod_dir@
 python_mod_dir_expanded = @python_mod_dir_expanded@
+runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -791,7 +764,6 @@ target_cpu = @target_cpu@
 # autoconf2.13's target_alias
 target_noncanonical = @target_noncanonical@
 target_os = @target_os@
-target_subdir = @target_subdir@
 target_vendor = @target_vendor@
 toolexecdir = @toolexecdir@
 toolexeclibdir = @toolexeclibdir@
@@ -800,10 +772,10 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign subdir-objects
-ACLOCAL_AMFLAGS = -I . -I .. -I ../config -I libltdl
+ACLOCAL_AMFLAGS = -I . -I ./config -I libltdl
 
 # May be used by various substitution variables.
-gcc_version := $(shell cat $(top_srcdir)/../gcc/BASE-VER)
+gcc_version := $(shell cat $(srcdir)/gcj/BASE-VER)
 SUBDIRS = $(DIRLTDL) gcj include classpath $(am__append_1)
 
 # write_entries_to_file - writes each entry in a list
@@ -10407,8 +10379,7 @@ distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(SCRIPTS) all-multi \
-		$(DATA)
+all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(SCRIPTS) $(DATA)
 installdirs: installdirs-recursive
 installdirs-am:
 	for dir in "$(DESTDIR)$(dbexecdir)" "$(DESTDIR)$(toolexeclibdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libexecsubdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(dbexecdir)" "$(DESTDIR)$(jardir)" "$(DESTDIR)$(toolexecmainlibdir)"; do \
@@ -10511,14 +10482,14 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-multi clean-recursive
+clean: clean-recursive
 
 clean-am: clean-binPROGRAMS clean-dbexecLTLIBRARIES clean-generic \
 	clean-libexecsubPROGRAMS clean-libtool clean-noinstLTLIBRARIES \
 	clean-noinstPROGRAMS clean-toolexeclibLTLIBRARIES \
 	mostlyclean-am
 
-distclean: distclean-multi distclean-recursive
+distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf ./$(DEPDIR) classpath/tools/$(DEPDIR) gnu/classpath/$(DEPDIR) gnu/classpath/jdwp/$(DEPDIR) gnu/gcj/$(DEPDIR) gnu/gcj/convert/$(DEPDIR) gnu/gcj/io/$(DEPDIR) gnu/gcj/jvmti/$(DEPDIR) gnu/gcj/runtime/$(DEPDIR) gnu/gcj/tools/gcj_dbtool/$(DEPDIR) gnu/gcj/util/$(DEPDIR) gnu/gcj/xlib/$(DEPDIR) gnu/java/lang/$(DEPDIR) gnu/java/lang/management/$(DEPDIR) gnu/java/net/$(DEPDIR) gnu/java/net/protocol/core/$(DEPDIR) gnu/java/nio/$(DEPDIR) gnu/java/nio/channels/$(DEPDIR) gnu/java/security/jce/prng/$(DEPDIR) java/io/$(DEPDIR) java/lang/$(DEPDIR) java/lang/ref/$(DEPDIR) java/lang/reflect/$(DEPDIR) java/net/$(DEPDIR) java/nio/$(DEPDIR) java/nio/channels/$(DEPDIR) java/security/$(DEPDIR) java/text/$(DEPDIR) java/util/$(DEPDIR) java/util/concurrent/atomic/$(DEPDIR) java/util/logging/$(DEPDIR) java/util/zip/$(DEPDIR) sun/misc/$(DEPDIR)
 	-rm -f Makefile
@@ -10545,8 +10516,8 @@ install-dvi-am:
 
 install-exec-am: install-binPROGRAMS install-binSCRIPTS \
 	install-dbexecDATA install-dbexecLTLIBRARIES \
-	install-libexecsubPROGRAMS install-multi \
-	install-toolexeclibLTLIBRARIES install-toolexecmainlibDATA
+	install-libexecsubPROGRAMS install-toolexeclibLTLIBRARIES \
+	install-toolexecmainlibDATA
 	@$(NORMAL_INSTALL)
 	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
 install-html: install-html-recursive
@@ -10569,14 +10540,14 @@ install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-multi maintainer-clean-recursive
+maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 	-rm -rf ./$(DEPDIR) classpath/tools/$(DEPDIR) gnu/classpath/$(DEPDIR) gnu/classpath/jdwp/$(DEPDIR) gnu/gcj/$(DEPDIR) gnu/gcj/convert/$(DEPDIR) gnu/gcj/io/$(DEPDIR) gnu/gcj/jvmti/$(DEPDIR) gnu/gcj/runtime/$(DEPDIR) gnu/gcj/tools/gcj_dbtool/$(DEPDIR) gnu/gcj/util/$(DEPDIR) gnu/gcj/xlib/$(DEPDIR) gnu/java/lang/$(DEPDIR) gnu/java/lang/management/$(DEPDIR) gnu/java/net/$(DEPDIR) gnu/java/net/protocol/core/$(DEPDIR) gnu/java/nio/$(DEPDIR) gnu/java/nio/channels/$(DEPDIR) gnu/java/security/jce/prng/$(DEPDIR) java/io/$(DEPDIR) java/lang/$(DEPDIR) java/lang/ref/$(DEPDIR) java/lang/reflect/$(DEPDIR) java/net/$(DEPDIR) java/nio/$(DEPDIR) java/nio/channels/$(DEPDIR) java/security/$(DEPDIR) java/text/$(DEPDIR) java/util/$(DEPDIR) java/util/concurrent/atomic/$(DEPDIR) java/util/logging/$(DEPDIR) java/util/zip/$(DEPDIR) sun/misc/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-multi mostlyclean-recursive
+mostlyclean: mostlyclean-recursive
 
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool mostlyclean-local
@@ -10594,34 +10565,30 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 	uninstall-jarDATA uninstall-libexecsubPROGRAMS \
 	uninstall-toolexeclibLTLIBRARIES uninstall-toolexecmainlibDATA
 
-.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) all-multi \
-	clean-multi ctags-recursive distclean-multi install-am \
-	install-exec-am install-multi install-strip \
-	maintainer-clean-multi mostlyclean-multi tags-recursive
+.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) ctags-recursive \
+	install-am install-exec-am install-strip tags-recursive
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
-	all all-am all-multi am--refresh check check-am clean \
-	clean-binPROGRAMS clean-dbexecLTLIBRARIES clean-generic \
-	clean-libexecsubPROGRAMS clean-libtool clean-multi \
-	clean-noinstLTLIBRARIES clean-noinstPROGRAMS \
+	all all-am am--refresh check check-am clean clean-binPROGRAMS \
+	clean-dbexecLTLIBRARIES clean-generic clean-libexecsubPROGRAMS \
+	clean-libtool clean-noinstLTLIBRARIES clean-noinstPROGRAMS \
 	clean-toolexeclibLTLIBRARIES ctags ctags-recursive distclean \
 	distclean-compile distclean-generic distclean-libtool \
-	distclean-local distclean-multi distclean-tags dvi dvi-am html \
-	html-am info info-am install install-am install-binPROGRAMS \
+	distclean-local distclean-tags dvi dvi-am html html-am info \
+	info-am install install-am install-binPROGRAMS \
 	install-binSCRIPTS install-data install-data-am \
 	install-data-local install-dbexecDATA \
 	install-dbexecLTLIBRARIES install-dvi install-dvi-am \
 	install-exec install-exec-am install-exec-hook install-html \
 	install-html-am install-info install-info-am install-jarDATA \
-	install-libexecsubPROGRAMS install-man install-multi \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip install-toolexeclibLTLIBRARIES \
-	install-toolexecmainlibDATA installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic maintainer-clean-multi mostlyclean \
+	install-libexecsubPROGRAMS install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	install-toolexeclibLTLIBRARIES install-toolexecmainlibDATA \
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	mostlyclean-local mostlyclean-multi pdf pdf-am ps ps-am tags \
-	tags-recursive uninstall uninstall-am uninstall-binPROGRAMS \
+	mostlyclean-local pdf pdf-am ps ps-am tags tags-recursive \
+	uninstall uninstall-am uninstall-binPROGRAMS \
 	uninstall-binSCRIPTS uninstall-dbexecDATA \
 	uninstall-dbexecLTLIBRARIES uninstall-jarDATA \
 	uninstall-libexecsubPROGRAMS uninstall-toolexeclibLTLIBRARIES \
@@ -12830,9 +12797,9 @@ maintainer-clean-multi:
 @ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@.SECONDEXPANSION:
 
 @ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@%.ver-sun : $(srcdir)/libgcj.ver \
-@ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@		$(top_srcdir)/../contrib/make_sunver.pl \
+@ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@		$(srcdir)/contrib/make_sunver.pl \
 @ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@		$$($$(basename $$@)_la_OBJECTS) $$($$(basename $$@)_la_LIBADD)
-@ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@	perl $(top_srcdir)/../contrib/make_sunver.pl \
+@ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@	perl $(srcdir)/contrib/make_sunver.pl \
 @ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@	  $(srcdir)/libgcj.ver \
 @ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@	 `echo $($(basename $@)_la_OBJECTS) $($(basename $@)_la_LIBADD) | \
 @ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@	    sed 's,\([^/ 	]*\)\.l\([ao]\),.libs/\1.\2,g'` \
