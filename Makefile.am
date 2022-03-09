@@ -2,7 +2,7 @@
 
 AUTOMAKE_OPTIONS = foreign subdir-objects
 
-ACLOCAL_AMFLAGS = -I . -I ./config -I libltdl
+ACLOCAL_AMFLAGS = -I . -I config -I libltdl
 
 # May be used by various substitution variables.
 gcc_version := $(shell cat $(srcdir)/gcj/BASE-VER)

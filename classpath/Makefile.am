@@ -7,7 +7,7 @@ DIST_SUBDIRS = lib doc external include native resource scripts tools examples
 
 # Allow users to pass site-specific flags to autoreconf via an env var. 
 ## GCJ LOCAL: we need an extra -I here.
-ACLOCAL_AMFLAGS = -I m4 -I ../.. -I ../../config ${LOCAL_AUTORECONF_FLAGS}
+ACLOCAL_AMFLAGS = -I m4 -I .. -I ../config ${LOCAL_AUTORECONF_FLAGS}
 
 native: lib
 

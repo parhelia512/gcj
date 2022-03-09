@@ -8,9 +8,7 @@ AC_INIT([libjava],[version-unused],[],[libjava])
 
 AC_CONFIG_SRCDIR(java/lang/System.java)
 
-AM_GNU_GETTEXT_VERSION(0.21-1)
-
-# GCC_TOPLEV_SUBDIRS
+GCC_TOPLEV_SUBDIRS
 
 # We use these options to decide which functions to include.
 AC_ARG_WITH(target-subdir,
@@ -24,12 +22,12 @@ AC_ARG_WITH(target-subdir,
 # AM_ENABLE_MULTILIB(, ..)
 
 AC_CANONICAL_TARGET
-# _GCC_TOPLEV_NONCANONICAL_BUILD
-# _GCC_TOPLEV_NONCANONICAL_TARGET
+_GCC_TOPLEV_NONCANONICAL_BUILD
+_GCC_TOPLEV_NONCANONICAL_TARGET
 
 AC_SUBST(target_noncanonical)
 
-# GCC_LIBSTDCXX_RAW_CXX_FLAGS
+GCC_LIBSTDCXX_RAW_CXX_FLAGS
 
 # This works around the fact that libtool configuration may change LD
 # for this particular configuration, but some shells, instead of
@@ -554,7 +552,10 @@ if test "x${with_newlib}" = "x" || test "x${with_newlib}" = "xno"; then
    _LT_CONFIG_LTDL_DIR([m4_default([], [libltdl])])
 _LTDL_CONVENIENCE
    _LT_SET_OPTION([LT_INIT],[dlopen])
+m4_warn([obsolete],[_LT_SET_OPTION([LT_INIT],[dlopen])
 m4_warn([obsolete],[AC_LIBTOOL_DLOPEN: Remove this warning and the call to _LT_SET_OPTION when you
+put the 'dlopen' option into LT_INIT's first parameter.])
+: Remove this warning and the call to _LT_SET_OPTION when you
 put the 'dlopen' option into LT_INIT's first parameter.])
 
    DIRLTDL=libltdl
@@ -1806,7 +1807,7 @@ AC_SUBST(here)
 # We get this from the environment.
 AC_SUBST(GCJFLAGS)
 
-default_python_dir="/share/gcc-`cat ${srcdir}/../gcc/BASE-VER`/python/libjava"
+default_python_dir="/share/gcc-`cat ${srcdir}/gcj/BASE-VER`/python/libjava"
 AC_ARG_WITH([python-dir],
             AS_HELP_STRING([--with-python-dir],
                            [the location to install Python modules. This path should NOT include the prefix.]),

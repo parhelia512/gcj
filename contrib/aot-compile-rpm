@@ -14,7 +14,7 @@
 ## GNU General Public License for more details.
 
 import sys
-sys.path.insert(0, "/usr/share/gcc-/python/libjava")
+sys.path.insert(0, "/usr/share/gcc-7.0.0/python/libjava")
 import aotcompile
 import os
 

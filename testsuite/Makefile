@@ -54,8 +54,26 @@ target_triplet = x86_64-pc-msys
 subdir = testsuite
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/config/sjlj.m4 \
-	$(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/config/acx.m4 \
+	$(top_srcdir)/config/depstand.m4 \
+	$(top_srcdir)/config/enable.m4 \
+	$(top_srcdir)/config/gxx-include-dir.m4 \
+	$(top_srcdir)/config/iconv.m4 \
+	$(top_srcdir)/config/lcmessage.m4 \
+	$(top_srcdir)/config/ld-symbolic.m4 \
+	$(top_srcdir)/config/lead-dot.m4 \
+	$(top_srcdir)/config/lib-ld.m4 \
+	$(top_srcdir)/config/lib-link.m4 \
+	$(top_srcdir)/config/lib-prefix.m4 \
+	$(top_srcdir)/config/libstdc++-raw-cxx.m4 \
+	$(top_srcdir)/config/lthostflags.m4 \
+	$(top_srcdir)/config/no-executables.m4 \
+	$(top_srcdir)/config/override.m4 $(top_srcdir)/config/tls.m4 \
+	$(top_srcdir)/config/unwind_ipinfo.m4 $(top_srcdir)/libtool.m4 \
+	$(top_srcdir)/ltdl.m4 $(top_srcdir)/ltoptions.m4 \
+	$(top_srcdir)/ltsugar.m4 $(top_srcdir)/ltversion.m4 \
+	$(top_srcdir)/lt~obsolete.m4 $(top_srcdir)/mingwld.m4 \
+	$(top_srcdir)/config/sjlj.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 CONFIG_HEADER = $(top_builddir)/include/config.h \
@@ -167,8 +185,8 @@ LIBGCJ_CFLAGS =   -fomit-frame-pointer -Usun
 LIBGCJ_CXXFLAGS =   -fomit-frame-pointer -Usun
 LIBGCJ_JAVAFLAGS =   -fomit-frame-pointer -Usun
 LIBGCJ_LD_EXPORT_ALL = 
-LIBGCJ_LD_SYMBOLIC = 
-LIBGCJ_LD_SYMBOLIC_FUNCTIONS = 
+LIBGCJ_LD_SYMBOLIC = -Wl,-Bsymbolic-functions
+LIBGCJ_LD_SYMBOLIC_FUNCTIONS = -Wl,-Bsymbolic-functions
 LIBGCJ_SPEC = %{s-bc-abi:} -lgcj
 LIBGCJ_SUBLIB_CORE_EXTRA_DEPS = 
 LIBGCJ_SUBLIB_LTFLAGS = 
@@ -178,6 +196,8 @@ LIBMATHSPEC = -lm
 LIBOBJS = 
 LIBS = 
 LIBSTDCXXSPEC = 
+LIBSTDCXX_RAW_CXX_CXXFLAGS =     -I$(top_builddir)/../libstdc++-v3/include     -I$(top_builddir)/../libstdc++-v3/include/$(target_noncanonical)     -I$(top_srcdir)/../libstdc++-v3/libsupc++
+LIBSTDCXX_RAW_CXX_LDFLAGS =     $(top_builddir)/../libstdc++-v3/src/libstdc++.la
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = cp -pR
@@ -258,7 +278,9 @@ bindir = ${exec_prefix}/bin
 build = x86_64-pc-msys
 build_alias = x86_64-pc-msys
 build_cpu = x86_64
+build_libsubdir = build-x86_64-pc-msys
 build_os = msys
+build_subdir = build-x86_64-pc-msys
 build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
@@ -271,12 +293,14 @@ extra_ldflags =
 extra_ldflags_libjava = 
 gcc_suffix = 
 gcjsubdir = gcj-7.0.0-18
+gxx_include_dir = ${prefix}/include/$(libstdcxx_incdir)
 here = /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj
 host = x86_64-pc-msys
 host_alias = 
 host_cpu = x86_64
 host_exeext = .exe
 host_os = msys
+host_subdir = .
 host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
@@ -284,8 +308,10 @@ infodir = ${datarootdir}/info
 install_sh = ${SHELL} /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
+libstdcxx_incdir = c++/$(gcc_version)
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
+lt_host_flags = 
 mandir = ${datarootdir}/man
 mkdir_p = /usr/bin/mkdir -p
 mkinstalldirs = /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/mkinstalldirs
@@ -294,8 +320,8 @@ pdfdir = ${docdir}
 prefix = /usr
 program_transform_name = s,x,x,
 psdir = ${docdir}
-python_mod_dir = ${prefix}/share/gcc-/python/libjava
-python_mod_dir_expanded = /usr/share/gcc-/python/libjava
+python_mod_dir = ${prefix}/share/gcc-7.0.0/python/libjava
+python_mod_dir_expanded = /usr/share/gcc-7.0.0/python/libjava
 runstatedir = ${localstatedir}/run
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
@@ -307,8 +333,9 @@ target_alias =
 target_cpu = x86_64
 
 # autoconf2.13's target_alias
-target_noncanonical = 
+target_noncanonical = x86_64-pc-msys
 target_os = msys
+target_subdir = x86_64-pc-msys
 target_vendor = pc
 toolexecdir = $(libdir)/gcc-lib/$(target_noncanonical)
 toolexeclibdir = $(libdir)/../lib
@@ -319,7 +346,7 @@ top_srcdir = ..
 AUTOMAKE_OPTIONS = foreign dejagnu
 
 # May be used by various substitution variables.
-gcc_version := $(shell cat $(top_srcdir)/../gcc/BASE-VER)
+gcc_version := $(shell cat $(srcdir)/gcj/BASE-VER)
 
 # Setup the testing framework, if you have one
 EXPECT = `if [ -f $(top_builddir)/../expect/expect ] ; then \

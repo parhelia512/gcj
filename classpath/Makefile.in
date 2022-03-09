@@ -52,26 +52,21 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = .
-DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
-	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
-	$(top_srcdir)/configure $(am__configure_deps) \
-	$(srcdir)/../../mkinstalldirs \
+DIST_COMMON = INSTALL INSTALL NEWS NEWS README README AUTHORS AUTHORS \
+	ChangeLog ChangeLog $(srcdir)/Makefile.in \
+	$(srcdir)/Makefile.am $(top_srcdir)/configure \
+	$(am__configure_deps) $(srcdir)/../mkinstalldirs \
+	$(srcdir)/../mkinstalldirs \
 	$(top_srcdir)/gnu/classpath/Configuration.java.in \
 	$(top_srcdir)/gnu/java/security/Configuration.java.in \
 	$(top_srcdir)/resource/META-INF/services/java.util.prefs.PreferencesFactory.in \
 	$(top_srcdir)/resource/META-INF/services/javax.sound.sampled.spi.AudioFileReader.in \
 	$(top_srcdir)/resource/META-INF/services/javax.sound.sampled.spi.MixerProvider.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/../../config/depstand.m4 \
-	$(top_srcdir)/../../config/lead-dot.m4 \
-	$(top_srcdir)/../../config/multi.m4 \
-	$(top_srcdir)/../../config/no-executables.m4 \
-	$(top_srcdir)/../../config/override.m4 \
-	$(top_srcdir)/../../libtool.m4 \
-	$(top_srcdir)/../../ltoptions.m4 \
-	$(top_srcdir)/../../ltsugar.m4 \
-	$(top_srcdir)/../../ltversion.m4 \
-	$(top_srcdir)/../../lt~obsolete.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/../config/depstand.m4 \
+	$(top_srcdir)/../config/lead-dot.m4 \
+	$(top_srcdir)/../config/no-executables.m4 \
+	$(top_srcdir)/../config/override.m4 \
 	$(top_srcdir)/m4/ac_prog_antlr.m4 \
 	$(top_srcdir)/m4/ac_prog_java.m4 \
 	$(top_srcdir)/m4/ac_prog_java_works.m4 \
@@ -83,13 +78,15 @@ am__aclocal_m4_deps = $(top_srcdir)/../../config/depstand.m4 \
 	$(top_srcdir)/m4/ax_func_which_gethostbyname_r.m4 \
 	$(top_srcdir)/m4/gcc_attribute.m4 $(top_srcdir)/m4/iconv.m4 \
 	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/pkg.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
-mkinstalldirs = $(SHELL) $(top_srcdir)/../../mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/include/config.h
 CONFIG_CLEAN_FILES = gnu/classpath/Configuration.java \
 	gnu/java/security/Configuration.java \
@@ -98,12 +95,6 @@ CONFIG_CLEAN_FILES = gnu/classpath/Configuration.java \
 	resource/META-INF/services/javax.sound.sampled.spi.MixerProvider
 CONFIG_CLEAN_VPATH_FILES =
 SOURCES =
-MULTISRCTOP = 
-MULTIBUILDTOP = 
-MULTIDIRS = 
-MULTISUBDIR = 
-MULTIDO = true
-MULTICLEAN = true
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -152,6 +143,7 @@ DATE = @DATE@
 DEFAULT_PREFS_PEER = @DEFAULT_PREFS_PEER@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
 DSYMUTIL = @DSYMUTIL@
 DUMPBIN = @DUMPBIN@
 ECHO_C = @ECHO_C@
@@ -215,8 +207,10 @@ LIPO = @LIPO@
 LN_S = @LN_S@
 LTLIBICONV = @LTLIBICONV@
 LTLIBOBJS = @LTLIBOBJS@
+LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR = @MKDIR@
 MKDIR_P = @MKDIR_P@
 MOC = @MOC@
@@ -274,6 +268,7 @@ abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_ANTLR = @ac_ct_ANTLR@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -311,13 +306,13 @@ localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
-multi_basedir = @multi_basedir@
 nativeexeclibdir = @nativeexeclibdir@
 oldincludedir = @oldincludedir@
 pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
+runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -342,7 +337,7 @@ SUBDIRS = lib doc external include native resource scripts tools $(EXAMPLESDIR)
 DIST_SUBDIRS = lib doc external include native resource scripts tools examples
 
 # Allow users to pass site-specific flags to autoreconf via an env var. 
-ACLOCAL_AMFLAGS = -I m4 -I ../.. -I ../../config ${LOCAL_AUTORECONF_FLAGS}
+ACLOCAL_AMFLAGS = -I m4 -I .. -I ../config ${LOCAL_AUTORECONF_FLAGS}
 EXTRA_DIST = HACKING BUGS THANKYOU mauve-classpath LICENSE ChangeLog-2007 \
              ChangeLog-2003 ChangeLog-2004 ChangeLog-2005 ChangeLog-2006 \
              ChangeLog.gnujaxp.1 ChangeLog.gnujaxp.2 ChangeLog.libxmlj \
@@ -407,23 +402,6 @@ clean-libtool:
 
 distclean-libtool:
 	-rm -f libtool config.lt
-
-# GNU Make needs to see an explicit $(MAKE) variable in the command it
-# runs to enable its job server during parallel builds.  Hence the
-# comments below.
-all-multi:
-	$(MULTIDO) $(AM_MAKEFLAGS) DO=all multi-do # $(MAKE)
-install-multi:
-	$(MULTIDO) $(AM_MAKEFLAGS) DO=install multi-do # $(MAKE)
-
-mostlyclean-multi:
-	$(MULTICLEAN) $(AM_MAKEFLAGS) DO=mostlyclean multi-clean # $(MAKE)
-clean-multi:
-	$(MULTICLEAN) $(AM_MAKEFLAGS) DO=clean multi-clean # $(MAKE)
-distclean-multi:
-	$(MULTICLEAN) $(AM_MAKEFLAGS) DO=distclean multi-clean # $(MAKE)
-maintainer-clean-multi:
-	$(MULTICLEAN) $(AM_MAKEFLAGS) DO=maintainer-clean multi-clean # $(MAKE)
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -561,7 +539,7 @@ distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 check-am: all-am
 check: check-recursive
-all-am: Makefile all-multi
+all-am: Makefile
 installdirs: installdirs-recursive
 installdirs-am:
 install: install-recursive
@@ -594,11 +572,11 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-multi clean-recursive
+clean: clean-recursive
 
 clean-am: clean-generic clean-libtool mostlyclean-am
 
-distclean: distclean-multi distclean-recursive
+distclean: distclean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -f Makefile
 distclean-am: clean-am distclean-generic distclean-libtool \
@@ -622,7 +600,7 @@ install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
-install-exec-am: install-multi
+install-exec-am:
 
 install-html: install-html-recursive
 
@@ -644,13 +622,13 @@ install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-multi maintainer-clean-recursive
+maintainer-clean: maintainer-clean-recursive
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-multi mostlyclean-recursive
+mostlyclean: mostlyclean-recursive
 
 mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
@@ -664,25 +642,22 @@ ps-am:
 
 uninstall-am:
 
-.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) all-multi \
-	clean-multi ctags-recursive distclean-multi install-am \
-	install-multi install-strip maintainer-clean-multi \
-	mostlyclean-multi tags-recursive
+.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) ctags-recursive \
+	install-am install-strip tags-recursive
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
-	all all-am all-multi am--refresh check check-am clean \
-	clean-generic clean-libtool clean-multi ctags ctags-recursive \
-	distclean distclean-generic distclean-libtool distclean-multi \
-	distclean-tags dvi dvi-am html html-am info info-am install \
-	install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-multi install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic maintainer-clean-multi mostlyclean \
-	mostlyclean-generic mostlyclean-libtool mostlyclean-multi pdf \
-	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am
+	all all-am am--refresh check check-am clean clean-generic \
+	clean-libtool ctags ctags-recursive distclean \
+	distclean-generic distclean-libtool distclean-tags dvi dvi-am \
+	html html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs installdirs-am maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
+	uninstall uninstall-am
 
 
 native: lib

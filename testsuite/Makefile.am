@@ -3,7 +3,7 @@
 AUTOMAKE_OPTIONS = foreign dejagnu
 
 # May be used by various substitution variables.
-gcc_version := $(shell cat $(top_srcdir)/../gcc/BASE-VER)
+gcc_version := $(shell cat $(srcdir)/gcj/BASE-VER)
 
 # autoconf2.13's target_alias
 target_noncanonical = @target_noncanonical@
