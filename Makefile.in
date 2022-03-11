@@ -82,7 +82,7 @@ target_triplet = @target@
 DIST_COMMON = $(srcdir)/sources.am NEWS README ChangeLog THANKS \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) mkinstalldirs \
-	mkinstalldirs $(srcdir)/libgcj.pc.in $(srcdir)/libgcj.spec.in \
+	$(srcdir)/libgcj.pc.in $(srcdir)/libgcj.spec.in \
 	$(srcdir)/libgcj-test.spec.in \
 	$(top_srcdir)/contrib/aotcompile.py.in \
 	$(top_srcdir)/contrib/aot-compile.in \
@@ -92,8 +92,7 @@ DIST_COMMON = $(srcdir)/sources.am NEWS README ChangeLog THANKS \
 	$(top_srcdir)/scripts/jar.in \
 	$(top_srcdir)/java/lang/nat${PLATFORM}Process.cc \
 	$(top_srcdir)/gnu/java/nio/natVMPipe${PLATFORM}.cc \
-	$(top_srcdir)/gnu/java/nio/natVMSelector${PLATFORM}.cc depcomp \
-	depcomp
+	$(top_srcdir)/gnu/java/nio/natVMSelector${PLATFORM}.cc depcomp
 @MAINTAINER_MODE_TRUE@@NATIVE_TRUE@am__append_22 = gen-from-JIS
 @BUILD_SUBLIBS_TRUE@am__append_23 = libgcj-noncore.la
 @BUILD_SUBLIBS_TRUE@am__append_24 = libgcj-noncore.la

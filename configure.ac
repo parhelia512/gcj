@@ -19,7 +19,7 @@ AC_ARG_WITH(target-subdir,
 # --with-target-subdir, --with-multisrctop, --with-multisubdir
 
 # Find the rest of the source tree framework.
-# AM_ENABLE_MULTILIB(, ..)
+AM_ENABLE_MULTILIB()
 
 AC_CANONICAL_TARGET
 _GCC_TOPLEV_NONCANONICAL_BUILD
@@ -745,7 +745,7 @@ LIBFFIINCS=
 if test "$with_libffi" != no; then
    AC_DEFINE(USE_LIBFFI, 1, [Define if we're to use libffi.])
    LIBFFI=../libffi/libffi_convenience.la
-   LIBFFIINCS='-I$(top_srcdir)/../libffi/include -I../libffi/include'
+   LIBFFIINCS='-I../libffi/include'
 fi
 AC_SUBST(LIBFFI)
 AC_SUBST(LIBFFIINCS)
@@ -898,9 +898,9 @@ arm*-*-linux-*)
     # Some of the ARM unwinder code is actually in libstdc++.  We
     # could in principle replicate it in libgcj, but it's better to
     # have a dependency on libstdc++.
-    extra_ldflags='-L$(here)/../libstdc++-v3/src/.libs -lstdc++'
+    extra_ldflags='-L$(here)/libstdc++-v3/src/.libs -lstdc++'
     LIBSTDCXXSPEC=-lstdc++
-    LIBGCJTESTSPEC="-L`${PWDCMD-pwd}`/.libs -L`${PWDCMD-pwd}`/../libstdc++-v3/src/.libs -rpath `${PWDCMD-pwd}`/.libs:`${PWDCMD-pwd}`/../libstdc++-v3/src/.libs -lstdc++"
+    LIBGCJTESTSPEC="-L`${PWDCMD-pwd}`/.libs -L`${PWDCMD-pwd}`/libstdc++-v3/src/.libs -rpath `${PWDCMD-pwd}`/.libs:`${PWDCMD-pwd}`/../libstdc++-v3/src/.libs -lstdc++"
     ;;
 *-*-cygwin)
     extra_ldflags_libjava=-liconv
@@ -957,10 +957,10 @@ GCTESTSPEC=
 case "$GC" in
  boehm)
     AC_MSG_RESULT(boehm)
-    GCLIBS=../boehm-gc/libgcjgc_convenience.la
+    GCLIBS=/boehm-gc/libgcjgc_convenience.la
     JC1GCSPEC='-fuse-boehm-gc'
-    GCTESTSPEC="-L`${PWDCMD-pwd}`/../boehm-gc/.libs -rpath `${PWDCMD-pwd}`/../boehm-gc/.libs"
-    GCINCS='-I$(top_srcdir)/../boehm-gc/include -I../boehm-gc/include'
+    GCTESTSPEC="-L`${PWDCMD-pwd}`/boehm-gc/.libs -rpath `${PWDCMD-pwd}`/boehm-gc/.libs"
+    GCINCS='-I../boehm-gc/include'
     GCOBJS=boehm.lo    
     GCHDR=boehm-gc.h
     # The POSIX thread support needs to know this.
@@ -1472,6 +1472,7 @@ if test ! -f gnu/classpath/Configuration.java; then
 fi
 
 LT_PROG_GCJ
+_LT_PROG_AR
 
 # Now remove it.
 rm -f gnu/classpath/Configuration.java

@@ -82,7 +82,7 @@ am__append_16 = posix-threads.cc
 DIST_COMMON = $(srcdir)/sources.am NEWS README ChangeLog THANKS \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) mkinstalldirs \
-	mkinstalldirs $(srcdir)/libgcj.pc.in $(srcdir)/libgcj.spec.in \
+	$(srcdir)/libgcj.pc.in $(srcdir)/libgcj.spec.in \
 	$(srcdir)/libgcj-test.spec.in \
 	$(top_srcdir)/contrib/aotcompile.py.in \
 	$(top_srcdir)/contrib/aot-compile.in \
@@ -92,8 +92,7 @@ DIST_COMMON = $(srcdir)/sources.am NEWS README ChangeLog THANKS \
 	$(top_srcdir)/scripts/jar.in \
 	$(top_srcdir)/java/lang/nat${PLATFORM}Process.cc \
 	$(top_srcdir)/gnu/java/nio/natVMPipe${PLATFORM}.cc \
-	$(top_srcdir)/gnu/java/nio/natVMSelector${PLATFORM}.cc depcomp \
-	depcomp
+	$(top_srcdir)/gnu/java/nio/natVMSelector${PLATFORM}.cc depcomp
 #am__append_22 = gen-from-JIS
 #am__append_23 = libgcj-noncore.la
 #am__append_24 = libgcj-noncore.la
@@ -587,7 +586,7 @@ EXEEXT = .exe
 FGREP = /usr/bin/grep -F
 GCC_FOR_ECJX = $(CXX)
 GCDEPS = 
-GCINCS = -I$(top_srcdir)/../boehm-gc/include -I../boehm-gc/include
+GCINCS = -I../boehm-gc/include
 GCJ =  -B/c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/
 GCJDEPMODE = depmode=none
 GCJFLAGS = -g -O2
@@ -595,9 +594,9 @@ GCJH = gcjh
 GCJVERSION = 7.0.0
 GCJ_BIN_DIR = 
 GCJ_FOR_ECJX = $(GCJ)
-GCLIBS = ../boehm-gc/libgcjgc_convenience.la
+GCLIBS = /boehm-gc/libgcjgc_convenience.la
 GCSPEC = 
-GCTESTSPEC = -L/c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/../boehm-gc/.libs -rpath /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/../boehm-gc/.libs
+GCTESTSPEC = -L/c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/boehm-gc/.libs -rpath /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/boehm-gc/.libs
 GLIB_CFLAGS = 
 GLIB_LIBS = 
 GREP = /usr/bin/grep
@@ -632,7 +631,7 @@ LIBART_CFLAGS =
 LIBART_LIBS = 
 LIBDIR = 
 LIBFFI = ../libffi/libffi_convenience.la
-LIBFFIINCS = -I$(top_srcdir)/../libffi/include -I../libffi/include
+LIBFFIINCS = -I../libffi/include
 LIBGCC_UNWIND_INCLUDE = -I$(multi_basedir)/./libjava/../libgcc
 LIBGCJDEBUG = disable
 LIBGCJTESTSPEC = -L/c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/.libs -rpath /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/.libs
@@ -641,8 +640,8 @@ LIBGCJ_CFLAGS =   -fomit-frame-pointer -Usun
 LIBGCJ_CXXFLAGS =   -fomit-frame-pointer -Usun
 LIBGCJ_JAVAFLAGS =   -fomit-frame-pointer -Usun
 LIBGCJ_LD_EXPORT_ALL = 
-LIBGCJ_LD_SYMBOLIC = -Wl,-Bsymbolic-functions
-LIBGCJ_LD_SYMBOLIC_FUNCTIONS = -Wl,-Bsymbolic-functions
+LIBGCJ_LD_SYMBOLIC = 
+LIBGCJ_LD_SYMBOLIC_FUNCTIONS = 
 LIBGCJ_SPEC = %{s-bc-abi:} -lgcj
 LIBGCJ_SUBLIB_CORE_EXTRA_DEPS = 
 LIBGCJ_SUBLIB_LTFLAGS = 
@@ -652,8 +651,8 @@ LIBMATHSPEC = -lm
 LIBOBJS = 
 LIBS = 
 LIBSTDCXXSPEC = 
-LIBSTDCXX_RAW_CXX_CXXFLAGS =     -I$(top_builddir)/../libstdc++-v3/include     -I$(top_builddir)/../libstdc++-v3/include/$(target_noncanonical)     -I$(top_srcdir)/../libstdc++-v3/libsupc++
-LIBSTDCXX_RAW_CXX_LDFLAGS =     $(top_builddir)/../libstdc++-v3/src/libstdc++.la
+LIBSTDCXX_RAW_CXX_CXXFLAGS = @LIBSTDCXX_RAW_CXX_CXXFLAGS@
+LIBSTDCXX_RAW_CXX_LDFLAGS = @LIBSTDCXX_RAW_CXX_LDFLAGS@
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = cp -pR
@@ -734,9 +733,9 @@ bindir = ${exec_prefix}/bin
 build = x86_64-pc-msys
 build_alias = x86_64-pc-msys
 build_cpu = x86_64
-build_libsubdir = build-x86_64-pc-msys
+build_libsubdir = @build_libsubdir@
 build_os = msys
-build_subdir = build-x86_64-pc-msys
+build_subdir = @build_subdir@
 build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
@@ -749,14 +748,14 @@ extra_ldflags =
 extra_ldflags_libjava = 
 gcc_suffix = 
 gcjsubdir = gcj-7.0.0-18
-gxx_include_dir = ${prefix}/include/$(libstdcxx_incdir)
+gxx_include_dir = @gxx_include_dir@
 here = /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj
 host = x86_64-pc-msys
 host_alias = 
 host_cpu = x86_64
 host_exeext = .exe
 host_os = msys
-host_subdir = .
+host_subdir = @host_subdir@
 host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
@@ -764,10 +763,10 @@ infodir = ${datarootdir}/info
 install_sh = ${SHELL} /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
-libstdcxx_incdir = c++/$(gcc_version)
+libstdcxx_incdir = @libstdcxx_incdir@
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
-lt_host_flags = 
+lt_host_flags = @lt_host_flags@
 mandir = ${datarootdir}/man
 mkdir_p = /usr/bin/mkdir -p
 mkinstalldirs = /c/Users/bp1user.SYDGRAM/Downloads/PortableGit/gcj/mkinstalldirs
@@ -789,9 +788,9 @@ target_alias =
 target_cpu = x86_64
 
 # autoconf2.13's target_alias
-target_noncanonical = x86_64-pc-msys
+target_noncanonical = 
 target_os = msys
-target_subdir = x86_64-pc-msys
+target_subdir = @target_subdir@
 target_vendor = pc
 toolexecdir = $(libdir)/gcc-lib/$(target_noncanonical)
 toolexeclibdir = $(libdir)/../lib

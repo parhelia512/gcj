@@ -28,7 +28,6 @@ config.status
 libtool
 POTFILES
 *-POTFILES
-Makefile
 
 TAGS
 TAGS.sub

@@ -52,10 +52,9 @@ build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
 subdir = .
-DIST_COMMON = INSTALL INSTALL NEWS NEWS README README AUTHORS AUTHORS \
-	ChangeLog ChangeLog $(srcdir)/Makefile.in \
-	$(srcdir)/Makefile.am $(top_srcdir)/configure \
-	$(am__configure_deps) $(srcdir)/../mkinstalldirs \
+DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
+	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
+	$(top_srcdir)/configure $(am__configure_deps) \
 	$(srcdir)/../mkinstalldirs \
 	$(top_srcdir)/gnu/classpath/Configuration.java.in \
 	$(top_srcdir)/gnu/java/security/Configuration.java.in \
