@@ -1,3 +1,9 @@
+2022-03-13  Zopolis4  <creatorsmithmdt@gmail.com>
+
+	* configure.ac: Run autoupdate.
+	* configure: Likewise.
+	* aclocal.m4: Regenerate.
+
 2016-03-29  Samuel Thibault  <samuel.thibault@ens-lyon.org>
 
 	* configure.host: Set gc_use_mmap on *-kfreebsd-gnu* and *-gnu*.

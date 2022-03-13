@@ -1,3 +1,8 @@
+2022-03-13  Zopolis4  <creatorsmithmdt@gmail.com>
+
+	* doc/install.texi: Re-add references to gcj/libjava.
+	* doc/invoke.texi: Likewise.
+
 2022-03-09  Richard Biener  <rguenther@suse.de>
 
 	* cfgexpand.cc (expand_gimple_asm): Special-case MEM_REF

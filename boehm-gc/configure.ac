@@ -16,7 +16,6 @@
 
 dnl Process this file with autoconf to produce configure.
 
-AC_PREREQ(2.64)
 AC_INIT
 AC_CONFIG_SRCDIR(gcj_mlc.c)
 # This works around the fact that libtool configuration may change LD
@@ -97,7 +96,7 @@ dnl gc_cflags="${gc_cflags} -fno-builtin"
 GC_CFLAGS=${gc_cflags}
 AC_SUBST(GC_CFLAGS)
 
-AC_PROG_LIBTOOL
+LT_INIT
 
 dnl We use these options to decide which functions to include.
 AC_ARG_WITH(target-subdir,
