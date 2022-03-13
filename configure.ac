@@ -1,6 +1,7 @@
 dnl # Process this with autoconf to create configure
 
 sinclude(config/sjlj.m4)
+m4_include([config/pkg.m4])
 
 AC_PREREQ([2.71])
 # Still use "libjava" here to placate dejagnu.
@@ -553,7 +554,10 @@ if test "x${with_newlib}" = "x" || test "x${with_newlib}" = "xno"; then
 _LTDL_CONVENIENCE
    _LT_SET_OPTION([LT_INIT],[dlopen])
 m4_warn([obsolete],[_LT_SET_OPTION([LT_INIT],[dlopen])
+m4_warn([obsolete],[_LT_SET_OPTION([LT_INIT],[dlopen])
 m4_warn([obsolete],[AC_LIBTOOL_DLOPEN: Remove this warning and the call to _LT_SET_OPTION when you
+put the 'dlopen' option into LT_INIT's first parameter.])
+: Remove this warning and the call to _LT_SET_OPTION when you
 put the 'dlopen' option into LT_INIT's first parameter.])
 : Remove this warning and the call to _LT_SET_OPTION when you
 put the 'dlopen' option into LT_INIT's first parameter.])
@@ -1401,16 +1405,15 @@ else
 
    # Test for Gtk stuff, if asked for.
    if test "$use_gtk_awt" = yes; then
-      # the PKG_CHECK_MODULES parts are removed because they break configuration on msys2, reminder to uncomment them for master
-      # PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.4)
+      PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.4)
       AC_SUBST(GTK_CFLAGS)
       AC_SUBST(GTK_LIBS)
 
-      # PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.4 gthread-2.0 >= 2.4)
+      PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.4 gthread-2.0 >= 2.4)
       AC_SUBST(GLIB_CFLAGS)
       AC_SUBST(GLIB_LIBS)
 
-      # PKG_CHECK_MODULES(LIBART, libart-2.0 >= 2.1)
+      PKG_CHECK_MODULES(LIBART, libart-2.0 >= 2.1)
       AC_SUBST(LIBART_CFLAGS)
       AC_SUBST(LIBART_LIBS)
 
