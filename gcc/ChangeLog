@@ -1,6 +1,7 @@
 2022-03-23  Zopolis4  <creatorsmithmdt@gmail.com>
 
-	* doc/install.texi: Re-add references to gcj/java/libjava.
+	* doc/cfg.texi: Re-add references to gcj/java/libjava.
+	* doc/install.texi: Likewise.
 	* doc/invoke.texi: Likewise.
 	* doc/sourcebuild.texi: Likewise.
 	* doc/standards.texi: Likewise.
