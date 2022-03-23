@@ -1,14 +1,27 @@
-2022-03-23  Zopolis4  <creatorsmithmdt@gmail.com>
+2022-03-24  Zopolis4  <creatorsmithmdt@gmail.com>
 
 	* doc/cfg.texi: Re-add references to gcj/java/libjava.
 	* doc/extend.texi: Likewise.
 	* doc/frontends.texi: Likewise.
 	* doc/install.texi: Likewise.
 	* doc/invoke.texi: Likewise.
-	* doc/md.texi: Likewise
+	* doc/md.texi: Likewise.
 	* doc/sourcebuild.texi: Likewise.
 	* doc/standards.texi: Likewise.
-	(java_interface): Re-add.
+	* cfgexpand.cc: Likewise.
+	* dwarf2out.cc: Likewise.
+	* gcc.cc: Likewise.
+	* gimple-expr.cc: Likewise.
+	* gimplify.c: Likewise.
+	* ipa-utils.h: Likewise.
+	* langhooks.h: Likewise.
+	* opts.cc: Likewise.
+	* tree-cfg.cc: Likewise.
+	* tree-eh.cc: Likewise.
+	* tree.cc: Likewise.
+	* varasm.cc: Likewise.
+	* ipa-free-lang.data.c: Re-add references to java
+	that were previously in tree.cc.
 
 2022-03-09  Richard Biener  <rguenther@suse.de>
 
