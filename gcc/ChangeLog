@@ -1,12 +1,13 @@
 2022-03-23  Zopolis4  <creatorsmithmdt@gmail.com>
 
 	* doc/cfg.texi: Re-add references to gcj/java/libjava.
+	* doc/extend.texi: Likewise.
 	* doc/install.texi: Likewise.
 	* doc/invoke.texi: Likewise.
+	* doc/md.texi: Likewise
 	* doc/sourcebuild.texi: Likewise.
 	* doc/standards.texi: Likewise.
-	* doc/extend.texi (Java Exceptions): Remove.
-	(java_interface): Remove.
+	(java_interface): Re-add.
 
 2022-03-09  Richard Biener  <rguenther@suse.de>
 
