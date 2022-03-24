@@ -3,6 +3,7 @@
 	* doc/cfg.texi: Re-add references to gcj/java/libjava.
 	* doc/extend.texi: Likewise.
 	* doc/frontends.texi: Likewise.
+	* doc/generic.texi: Likewise.
 	* doc/install.texi: Likewise.
 	* doc/invoke.texi: Likewise.
 	* doc/md.texi: Likewise.
