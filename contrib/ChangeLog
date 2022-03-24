@@ -1,9 +1,10 @@
-2022-03-23  Zopolis4  <creatorsmithmdt@gmail.com>
+2022-03-24  Zopolis4  <creatorsmithmdt@gmail.com>
 
-	* update-copyright.py: Re-add libjava and libjava/testsuite add_dir,
-	and LibJavaFilter.
+	* gcc_update: Remove entries related to GCJ and libgcj.
 	* patch_tester.sh (TESTLOGS): Re-add
 	$TARGET/libjava/testsuite/libjava.sum.
+	* update-copyright.py: Re-add libjava and libjava/testsuite add_dir,
+	and LibJavaFilter.
 	* warn_summary: Re-add the -java option.
 
 2022-03-09  Jonathan Wakely  <jwakely@redhat.com>
