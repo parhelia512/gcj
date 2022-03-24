@@ -1,5 +1,9 @@
 2022-03-24  Zopolis4  <creatorsmithmdt@gmail.com>
 
+	* config/darwin.cc: Re-add the java workaround constraint about
+	putting small items into data/static data.
+	* config/i386/cygwin.h (LIBGCJ_SONAME): Re-add.
+	* config/i386/mingw32.h (LIBGCJ_SONAME): Likewise.
 	* doc/cfg.texi: Re-add references to gcj/java/libjava.
 	* doc/extend.texi: Likewise.
 	* doc/frontends.texi: Likewise.
@@ -9,8 +13,6 @@
 	* doc/md.texi: Likewise.
 	* doc/sourcebuild.texi: Likewise.
 	* doc/standards.texi: Likewise.
-	* config/darwin.cc: Re-add the java workaround constraint about
-	putting small items into data/static data.
 	* cfgexpand.cc: Likewise.
 	* dwarf2out.cc: Likewise.
 	* gcc.cc: Likewise.
