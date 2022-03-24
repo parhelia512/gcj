@@ -25,6 +25,8 @@
 	* varasm.cc: Likewise.
 	* ipa-free-lang.data.c: Re-add references to Java
 	that were previously in tree.cc.
+	* gimple-fold.c (canonicalize_constructor_val):
+	set TREE_ADDRESSABLE for java.
 
 2022-03-09  Richard Biener  <rguenther@suse.de>
 
