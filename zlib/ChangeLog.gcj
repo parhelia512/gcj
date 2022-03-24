@@ -1,5 +1,6 @@
 2022-03-24  Zopolis4  <creatorsmithmdt@gmail.com>
 
+	* aclocal.m4: Regenerate.
 	* Makefile.am (noinst_LTLIBRARIES): Rename libz_convience.la to
 	libzgcj_convenience.la.
 	* Makefile.in: Regenerate.
