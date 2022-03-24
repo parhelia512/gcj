@@ -9,6 +9,8 @@
 	* doc/md.texi: Likewise.
 	* doc/sourcebuild.texi: Likewise.
 	* doc/standards.texi: Likewise.
+	* config/darwin.cc: Re-add the java workaround constraint about
+	putting small items into data/static data.
 	* cfgexpand.cc: Likewise.
 	* dwarf2out.cc: Likewise.
 	* gcc.cc: Likewise.
@@ -21,7 +23,7 @@
 	* tree-eh.cc: Likewise.
 	* tree.cc: Likewise.
 	* varasm.cc: Likewise.
-	* ipa-free-lang.data.c: Re-add references to java
+	* ipa-free-lang.data.c: Re-add references to Java
 	that were previously in tree.cc.
 
 2022-03-09  Richard Biener  <rguenther@suse.de>
