@@ -40,20 +40,18 @@ details.  */
 
 extern "C"
 {
-#include <gc_config.h>
-
 // Set GC_DEBUG before including gc.h!
 #ifdef LIBGCJ_GC_DEBUG
 # define GC_DEBUG
 #endif
 
-#include <gc_mark.h>
-#include <gc_gcj.h>
-#include <javaxfc.h>  // GC_finalize_all declaration.  
+#include <gc/gc_mark.h>
+#include <gc/gc_gcj.h>
+#include <gc/javaxfc.h>  // GC_finalize_all declaration.
 
 #ifdef THREAD_LOCAL_ALLOC
 # define GC_REDIRECT_TO_LOCAL
-# include <gc_local_alloc.h>
+# include <gc/gc.h>
 #endif
 
   // From boehm's misc.c 
@@ -468,7 +466,9 @@ _Jv_GCSetMaximumHeapSize (size_t size)
 int
 _Jv_SetGCFreeSpaceDivisor (int div)
 {
-  return (int)GC_set_free_space_divisor ((GC_word)div);
+  int old_div = (int)GC_get_free_space_divisor ();
+  GC_set_free_space_divisor ((GC_word)div);
+  return old_div;
 }
 
 void
