@@ -3309,6 +3309,12 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
 
   bool member_new_p = false;
 
+  bool member_delete_p = (!globally_qualified_p
+			  && CLASS_TYPE_P (elt_type)
+			  && (array_p
+			      ? TYPE_GETS_VEC_DELETE (elt_type)
+			      : TYPE_GETS_REG_DELETE (elt_type)));
+
   /* Allocate the object.  */
   if (vec_safe_is_empty (*placement) && TYPE_FOR_JAVA (elt_type))
     {
@@ -3327,8 +3333,8 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
 	return error_mark_node;
 
       use_java_new = 1;
-      if (!get_global_value_if_present (get_identifier (alloc_name),
-					&alloc_fn))
+
+      if (!get_identifier (alloc_name))
 	{
           if (complain & tf_error)
             error ("call to Java constructor with %qs undefined", alloc_name);
@@ -3340,7 +3346,7 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
             error ("%qD should never be overloaded", alloc_fn);
 	  return error_mark_node;
 	}
-      alloc_fn = OVL_CURRENT (alloc_fn);
+      alloc_fn = OVL_FIRST (TREE_VALUE (alloc_fn));
       if (TREE_CODE (alloc_fn) != FUNCTION_DECL
 	  || TREE_CODE (TREE_TYPE (alloc_fn)) != FUNCTION_TYPE
 	  || !POINTER_TYPE_P (TREE_TYPE (TREE_TYPE (alloc_fn))))
@@ -3363,7 +3369,7 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
       tree fnname;
       tree fns;
 
-      fnname = ansi_opname (array_p ? VEC_NEW_EXPR : NEW_EXPR);
+      fnname = ovl_op_identifier (false, array_p ? VEC_NEW_EXPR : NEW_EXPR);
 
       member_new_p = !globally_qualified_p
 	  && CLASS_TYPE_P (elt_type)
@@ -3395,7 +3401,7 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
 	  /* Create the argument list.  */
 	  vec_safe_insert (*placement, 0, size);
 	  /* Do name-lookup to find the appropriate operator.  */
-	  fns = lookup_fnfields (elt_type, fnname, /*protect=*/2);
+	  fns = lookup_fnfields (elt_type, fnname, /*protect=*/2, complain);
 	  if (fns == NULL_TREE)
 	    {
               if (complain & tf_error)
@@ -4093,7 +4099,7 @@ build_java_class_ref (tree type)
     CL_suffix = get_identifier("class$");
   if (jclass_node == NULL_TREE)
     {
-      jclass_node = IDENTIFIER_GLOBAL_VALUE (get_identifier ("jclass"));
+      jclass_node = get_global_binding (get_identifier ("jclass"));
       if (jclass_node == NULL_TREE)
 	{
 	  error ("call to Java constructor, while %<jclass%> undefined");
@@ -4119,7 +4125,7 @@ build_java_class_ref (tree type)
       }
   }
 
-  class_decl = IDENTIFIER_GLOBAL_VALUE (name);
+  class_decl = get_global_binding (name);
   if (class_decl == NULL_TREE)
     {
       class_decl = build_decl (input_location,
