@@ -6,6 +6,7 @@
 	* config/i386/cygwin.h (LIBGCJ_SONAME): Re-add.
 	* config/i386/mingw32.h (LIBGCJ_SONAME): Likewise.
 	* doc/tm.texi.in: Document MODIFY_JNI_METHOD_CALL again.
+	* doc/tm.texi: Regenerate.
 	* doc/cfg.texi: Re-add references to gcj/java/libjava.
 	* doc/extend.texi: Likewise.
 	* doc/frontends.texi: Likewise.
