@@ -3458,8 +3458,9 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
 						align_arg,
 						outer_nelts_check,
 						&alloc_fn, complain);
-	}
+	
     }
+
       /* If size is zero e.g. due to type having zero size, try to
 	 preserve outer_nelts for constant expression evaluation
 	 purposes.  */
