@@ -3453,6 +3453,12 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
 		outer_nelts_check = NULL_TREE;
 	    }
 
+	    /* If size is zero e.g. due to type having zero size, try to
+	    preserve outer_nelts for constant expression evaluation
+	    purposes.  */
+	  if (integer_zerop (size) && outer_nelts)
+	    size = build2 (MULT_EXPR, TREE_TYPE (size), size, outer_nelts);
+
 	  alloc_call = build_operator_new_call (fnname, placement,
 						&size, &cookie_size,
 						align_arg,
