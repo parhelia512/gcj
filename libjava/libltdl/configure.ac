@@ -17,8 +17,6 @@
 # 02110-1301  USA
 
 
-AC_PREREQ(2.64)
-
 dnl Disable libtool 1.5 support for languages we don't use
 define([AC_LIBTOOL_LANG_CXX_CONFIG], [:])dnl
 define([AC_LIBTOOL_LANG_F77_CONFIG], [:])dnl
@@ -58,7 +56,7 @@ fi
 ## Automake Initialisation. ##
 ## ------------------------ ##
 AM_INIT_AUTOMAKE(AC_PACKAGE_TARNAME, AC_PACKAGE_VERSION, -)
-AM_CONFIG_HEADER([config.h:config-h.in])
+AC_CONFIG_HEADERS([config.h:config-h.in])
 
 
 ## ------------------ ##
