@@ -34,13 +34,12 @@ jobs:
            mkdir -p gcj-build;
            cd gcj-build;
            ../configure \
-               --enable-languages=java \
-               --disable-bootstrap \
-               --enable-multilib
+               --enable-languages=java
 
     - name: Build
       shell: bash
       run: |
            cd gcj-build; \
-           make -Otarget -j $(nproc) 2>&1 | tee log
+           make -j $(nproc);
+           make
 
