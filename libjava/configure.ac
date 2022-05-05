@@ -3,7 +3,7 @@ dnl # Process this with autoconf to create configure
 sinclude(../config/sjlj.m4)
 
 # Still use "libjava" here to placate dejagnu.
-AC_INIT([libjava], [version-unused],, [libjava])
+AC_INIT([libjava], [version-unused], [libjava])
 
 AC_CONFIG_SRCDIR(java/lang/System.java)
 
