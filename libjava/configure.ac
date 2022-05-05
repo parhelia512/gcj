@@ -2,7 +2,6 @@ dnl # Process this with autoconf to create configure
 
 sinclude(../config/sjlj.m4)
 
-AC_PREREQ(2.64)
 # Still use "libjava" here to placate dejagnu.
 AC_INIT([libjava], [version-unused],, [libjava])
 
