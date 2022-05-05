@@ -6465,10 +6465,10 @@ fi
 #
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking if $compiler static flag $lt_prog_compiler_static works" >&5
 $as_echo_n "checking if $compiler static flag $lt_prog_compiler_static works... " >&6; }
-if ${lt_prog_compiler_static_works+:} false; then :
+if ${lt_cv_prog_compiler_static_works+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  lt_prog_compiler_static_works=no
+  lt_cv_prog_compiler_static_works=no
    save_LDFLAGS="$LDFLAGS"
    LDFLAGS="$LDFLAGS $lt_prog_compiler_static"
    printf "$lt_simple_link_test_code" > conftest.$ac_ext
@@ -6481,20 +6481,20 @@ else
        $echo "X$_lt_linker_boilerplate" | $Xsed > conftest.exp
        $SED '/^$/d' conftest.err >conftest.er2
        if diff conftest.exp conftest.er2 >/dev/null; then
-         lt_prog_compiler_static_works=yes
+         lt_cv_prog_compiler_static_works=yes
        fi
      else
-       lt_prog_compiler_static_works=yes
+       lt_cv_prog_compiler_static_works=yes
      fi
    fi
    $rm conftest*
    LDFLAGS="$save_LDFLAGS"
 
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $lt_prog_compiler_static_works" >&5
-$as_echo "$lt_prog_compiler_static_works" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $lt_cv_prog_compiler_static_works" >&5
+$as_echo "$lt_cv_prog_compiler_static_works" >&6; }
 
-if test x"$lt_prog_compiler_static_works" = xyes; then
+if test x"$lt_cv_prog_compiler_static_works" = xyes; then
     :
 else
     lt_prog_compiler_static=
@@ -6777,10 +6777,10 @@ if test -n "$lt_prog_compiler_pic"; then
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking if $compiler PIC flag $lt_prog_compiler_pic works" >&5
 $as_echo_n "checking if $compiler PIC flag $lt_prog_compiler_pic works... " >&6; }
-if ${lt_prog_compiler_pic_works+:} false; then :
+if ${lt_cv_prog_compiler_pic_works+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  lt_prog_compiler_pic_works=no
+  lt_cv_prog_compiler_pic_works=no
   ac_outfile=conftest.$ac_objext
    printf "$lt_simple_compile_test_code" > conftest.$ac_ext
    lt_compiler_flag="$lt_prog_compiler_pic -DPIC"
@@ -6804,16 +6804,16 @@ else
      $echo "X$_lt_compiler_boilerplate" | $Xsed >conftest.exp
      $SED '/^$/d' conftest.err >conftest.er2
      if test ! -s conftest.err || diff conftest.exp conftest.er2 >/dev/null; then
-       lt_prog_compiler_pic_works=yes
+       lt_cv_prog_compiler_pic_works=yes
      fi
    fi
    $rm conftest*
 
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $lt_prog_compiler_pic_works" >&5
-$as_echo "$lt_prog_compiler_pic_works" >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $lt_cv_prog_compiler_pic_works" >&5
+$as_echo "$lt_cv_prog_compiler_pic_works" >&6; }
 
-if test x"$lt_prog_compiler_pic_works" = xyes; then
+if test x"$lt_cv_prog_compiler_pic_works" = xyes; then
     case $lt_prog_compiler_pic in
      "" | " "*) ;;
      *) lt_prog_compiler_pic=" $lt_prog_compiler_pic" ;;
