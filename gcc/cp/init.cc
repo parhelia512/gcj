@@ -3315,7 +3315,7 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
 			  && (array_p
 			      ? TYPE_GETS_VEC_DELETE (elt_type)
 			      : TYPE_GETS_REG_DELETE (elt_type)));
-
+	    
   /* Allocate the object.  */
   if (vec_safe_is_empty (*placement) && TYPE_FOR_JAVA (elt_type))
     {
@@ -3465,19 +3465,8 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
 						align_arg,
 						outer_nelts_check,
 						&alloc_fn, complain);
-	
-    }
 
-      /* If size is zero e.g. due to type having zero size, try to
-	 preserve outer_nelts for constant expression evaluation
-	 purposes.  */
-      if (integer_zerop (size) && outer_nelts)
-	size = build2 (MULT_EXPR, TREE_TYPE (size), size, outer_nelts);
-
-      alloc_call = build_operator_new_call (fnname, placement,
-					    &size, &cookie_size,
-					    align_arg, outer_nelts_check,
-					    &alloc_fn, complain);
+	    }
     }
 
   if (alloc_call == error_mark_node)
