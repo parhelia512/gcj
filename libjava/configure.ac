@@ -558,17 +558,12 @@ dnl --enable-regen-headers?
 if test "x${with_newlib}" = "x" || test "x${with_newlib}" = "xno"; then
    AC_LIBLTDL_CONVENIENCE
    AC_LIBTOOL_DLOPEN
-   DIRLTDL=libltdl
    AC_DEFINE(USE_LTDL, 1, [Define if libltdl is in use.])
-   # Sigh.  Libtool's macro doesn't do the right thing.
-   INCLTDL="-I\$(top_srcdir)/libltdl $INCLTDL"
    # FIXME: this is a hack.
    sub_auxdir="`cd $ac_aux_dir && ${PWDCMD-pwd}`"
    ac_configure_args="$ac_configure_args --with-auxdir=$sub_auxdir"
 fi
-AC_SUBST(INCLTDL)
 AC_SUBST(LIBLTDL)
-AC_SUBST(DIRLTDL)
 LT_INIT
 ACX_LT_HOST_FLAGS
 AM_PROG_GCJ
