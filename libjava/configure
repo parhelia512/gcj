@@ -19485,33 +19485,7 @@ fi
 
 # If we are not using SJLJ exceptions, and this host does not have support
 # for unwinding from a signal handler, enable checked dereferences and divides.
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether the compiler is configured for setjmp/longjmp exceptions" >&5
-$as_echo_n "checking whether the compiler is configured for setjmp/longjmp exceptions... " >&6; }
-if ${ac_cv_sjlj_exceptions+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#ifdef __USING_SJLJ_EXCEPTIONS__
-          this will fail
-          #endif
-int
-main ()
-{
-int i;
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  ac_cv_sjlj_exceptions=no
-else
-  ac_cv_sjlj_exceptions=yes
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_sjlj_exceptions" >&5
-$as_echo "$ac_cv_sjlj_exceptions" >&6; }
+GCC_CHECK_SJLJ_EXCEPTIONS
 if test $ac_cv_sjlj_exceptions = no && test $can_unwind_signal = no; then
   CHECKREFSPEC=-fcheck-references
   DIVIDESPEC=-fuse-divide-subroutine
