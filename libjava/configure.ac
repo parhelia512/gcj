@@ -574,7 +574,7 @@ ACX_LT_HOST_FLAGS
 AM_PROG_GCJ
 AM_PROG_CC_C_O
 
-AC_CONFIG_SUBDIRS(classpath libltdl)
+AC_CONFIG_SUBDIRS(classpath)
 
 # The -no-testsuite modules omit the test subdir.
 AM_CONDITIONAL(TESTSUBDIR, test -d $srcdir/testsuite)
