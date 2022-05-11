@@ -3254,7 +3254,6 @@ CLASSPATH_MODULE="${cp_module} -version-info ${LIBVERSION} -no-undefined"
 CLASSPATH_CONVENIENCE="-no-undefined"
 
 
-
 am__api_version='1.15'
 
 # Find a good install program.  We prefer a C program (faster),
@@ -12160,7 +12159,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 12163 "configure"
+#line 12162 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12266,7 +12265,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 12269 "configure"
+#line 12268 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -25511,7 +25510,7 @@ else
 JAVA_TEST=Object.java
 CLASS_TEST=Object.class
 cat << \EOF > $JAVA_TEST
-/* #line 25514 "configure" */
+/* #line 25513 "configure" */
 package java.lang;
 
 public class Object
@@ -25604,7 +25603,7 @@ EOF
 if uudecode$EXEEXT Test.uue; then
         ac_cv_prog_uudecode_base64=yes
 else
-        echo "configure: 25607: uudecode had trouble decoding base 64 file 'Test.uue'" >&5
+        echo "configure: 25606: uudecode had trouble decoding base 64 file 'Test.uue'" >&5
         echo "configure: failed file was:" >&5
         cat Test.uue >&5
         ac_cv_prog_uudecode_base64=no
@@ -25632,7 +25631,7 @@ JAVA_TEST=Test.java
 CLASS_TEST=Test.class
 TEST=Test
 cat << \EOF > $JAVA_TEST
-/* [#]line 25635 "configure" */
+/* [#]line 25634 "configure" */
 public class Test {
 public static void main (String args[]) {
         System.exit (0);
@@ -25840,7 +25839,7 @@ if test "x${use_glibj_zip}" = xfalse || \
   JAVA_TEST=Test.java
   CLASS_TEST=Test.class
   cat << \EOF > $JAVA_TEST
-  /* #line 25843 "configure" */
+  /* #line 25842 "configure" */
   public class Test
   {
     public static void main(String args)
