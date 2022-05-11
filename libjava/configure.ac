@@ -154,8 +154,9 @@ GCC_NO_EXECUTABLES
 
 AM_INIT_AUTOMAKE([no-dist 1.9.0])
 
-# -fno-builtin must be present here so that a non-conflicting form of
-# std::exit can be guessed by AC_PROG_CXX, and used in later tests.
+# For libstdc++-v3, -fno-builtin must be present here so that a
+# non-conflicting form of std::exit can be guessed by AC_PROG_CXX, and
+# used in later tests.  This may not be necessary in libjava; I don't know.
 
 save_CXXFLAGS="$CXXFLAGS"
 CXXFLAGS="$CXXFLAGS -fno-builtin"
