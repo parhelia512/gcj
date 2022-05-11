@@ -25,41 +25,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 */
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
 
-#if HAVE_BOEHM_GC
+#ifdef HAVE_BOEHM_GC
 #  include <gc.h>
 #endif
 
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #  include <unistd.h>
 #endif
 
-#if HAVE_STDIO_H
+#ifdef HAVE_STDIO_H
 #  include <stdio.h>
 #endif
 
 /* Include the header defining malloc.  On K&R C compilers,
    that's <malloc.h>, on ANSI C and ISO C compilers, that's <stdlib.h>.  */
-#if HAVE_STDLIB_H
+#ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #else
-#  if HAVE_MALLOC_H
+#  ifdef HAVE_MALLOC_H
 #    include <malloc.h>
 #  endif
 #endif
 
-#if HAVE_STRING_H
+#ifdef HAVE_STRING_H
 #  include <string.h>
 #else
-#  if HAVE_STRINGS_H
+#  ifdef HAVE_STRINGS_H
 #    include <strings.h>
 #  endif
 #endif
 
-#if HAVE_CTYPE_H
+#ifdef HAVE_CTYPE_H
 #  include <ctype.h>
 #endif
 
@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #  include <memory.h>
 #endif
 
-#if HAVE_ERRNO_H
+#ifdef HAVE_ERRNO_H
 #  include <errno.h>
 #endif
 
@@ -108,13 +108,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #  else
 #    define dirent direct
 #    define LT_D_NAMLEN(dirent) ((dirent)->d_namlen)
-#    if HAVE_SYS_NDIR_H
+#    ifdef HAVE_SYS_NDIR_H
 #      include <sys/ndir.h>
 #    endif
-#    if HAVE_SYS_DIR_H
+#    ifdef HAVE_SYS_DIR_H
 #      include <sys/dir.h>
 #    endif
-#    if HAVE_NDIR_H
+#    ifdef HAVE_NDIR_H
 #      include <ndir.h>
 #    endif
 #  endif
@@ -124,7 +124,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #  include <argz.h>
 #endif
 
-#if HAVE_ASSERT_H
+#ifdef HAVE_ASSERT_H
 #  include <assert.h>
 #else
 #  define assert(arg)	((void) 0)
@@ -132,7 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include "ltdl.h"
 
-#if WITH_DMALLOC
+#ifdef WITH_DMALLOC
 #  include <dmalloc.h>
 #endif
 
