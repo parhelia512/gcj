@@ -685,9 +685,6 @@ SYSROOT_CFLAGS_FOR_TARGET
 get_gcc_base_ver
 extra_host_zlib_configure_flags
 extra_host_libiberty_configure_flags
-PKG_CONFIG_LIBDIR
-PKG_CONFIG_PATH
-PKG_CONFIG
 stage1_languages
 host_shared
 extra_linker_plugin_flags
@@ -864,9 +861,6 @@ CPPFLAGS
 CXX
 CXXFLAGS
 CCC
-PKG_CONFIG
-PKG_CONFIG_PATH
-PKG_CONFIG_LIBDIR
 build_configargs
 host_configargs
 target_configargs
@@ -1667,11 +1661,6 @@ Some influential environment variables:
               you have headers in a nonstandard directory <include dir>
   CXX         C++ compiler command
   CXXFLAGS    C++ compiler flags
-  PKG_CONFIG  path to pkg-config utility
-  PKG_CONFIG_PATH
-              directories to add to pkg-config's search path
-  PKG_CONFIG_LIBDIR
-              path overriding pkg-config's built-in search path
   build_configargs
               additional configure arguments for build directories
   host_configargs
@@ -2845,11 +2834,6 @@ host_libs="intl libiberty opcodes bfd readline tcl tk itcl libgui zlib libbacktr
 # If --enable-gold is used, "gold" may replace "ld".
 host_tools="texinfo flex bison binutils gas ld fixincludes gcc cgen sid sim gdb gdbserver gprof etc expect dejagnu m4 utils guile fastjar gnattools libcc1 gotools c++tools"
 
-# libgcj represents the runtime libraries only used by gcj.
-libgcj="target-libffi \
-	target-zlib \
-	target-libjava"
-
 # these libraries are built for the target environment, and are built after
 # the host libraries and the host tools (which may be a cross compiler)
 # Note that libiberty is not a target library.
@@ -2867,8 +2851,7 @@ target_libraries="target-libgcc \
 		target-libssp \
 		target-libquadmath \
 		target-libgfortran \
-		target-boehm-gc \
-		${libgcj} \
+		target-libjava \
 		target-libffi \
 		target-libobjc \
 		target-libada \
@@ -3265,26 +3248,6 @@ fi
 fi
 
 
-
-# Save it here so that, even in case of --enable-libgcj, if the Java
-# front-end isn't enabled, we still get libgcj disabled.
-libgcj_saved=$libgcj
-case $enable_libgcj in
-yes)
-  # If we reset it here, it won't get added to noconfigdirs in the
-  # target-specific build rules, so it will be forcibly enabled
-  # (unless the Java language itself isn't enabled).
-  libgcj=
-  ;;
-no)
-  # Make sure we get it printed in the list of not supported target libs.
-  # Don't disable libffi, though, other languages use it.
-  noconfigdirs="$noconfigdirs `echo ${libgcj} | sed -e 's/target-libffi//'`"
-  # Clear libgcj_saved so that even if java is enabled libffi won't be
-  # built.
-  libgcj_saved=
-  ;;
-esac
 
 # Check whether --enable-static-libjava was given.
 if test "${enable_static_libjava+set}" = set; then :
@@ -9031,11 +8994,7 @@ done
 # Check for Boehm's garbage collector
 # Check whether --enable-objc-gc was given.
 if test "${enable_objc_gc+set}" = set; then :
-  enableval=$enable_objc_gc; case ,${enable_languages},:${enable_objc_gc}:${noconfigdirs} in
-  *,objc,*:*:yes:*target-boehm-gc*)
-    as_fn_error $? "Boehm's garbage collector was requested yet not supported in this configuration" "$LINENO" 5
-    ;;
-esac
+  enableval=$enable_objc_gc;
 fi
 
 
@@ -9057,141 +9016,12 @@ if test "${with_target_bdw_gc_lib+set}" = set; then :
 fi
 
 
-case ,${enable_languages},:${enable_objc_gc} in *,objc,*:yes|*,objc,*:auto)
+case ,${enable_languages},:${enable_objc_gc} in *,java,*:*|*,objc,*:yes|*,objc,*:auto)
   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for bdw garbage collector" >&5
 $as_echo_n "checking for bdw garbage collector... " >&6; }
   if test "x$with_target_bdw_gc$with_target_bdw_gc_include$with_target_bdw_gc_lib" = x; then
-
-
-
-
-
-
-
-if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
-	if test -n "$ac_tool_prefix"; then
-  # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
-set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_PKG_CONFIG+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $PKG_CONFIG in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_PKG_CONFIG="$PKG_CONFIG" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-PKG_CONFIG=$ac_cv_path_PKG_CONFIG
-if test -n "$PKG_CONFIG"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PKG_CONFIG" >&5
-$as_echo "$PKG_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-fi
-if test -z "$ac_cv_path_PKG_CONFIG"; then
-  ac_pt_PKG_CONFIG=$PKG_CONFIG
-  # Extract the first word of "pkg-config", so it can be a program name with args.
-set dummy pkg-config; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_ac_pt_PKG_CONFIG+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $ac_pt_PKG_CONFIG in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_ac_pt_PKG_CONFIG="$ac_pt_PKG_CONFIG" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_ac_pt_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-ac_pt_PKG_CONFIG=$ac_cv_path_ac_pt_PKG_CONFIG
-if test -n "$ac_pt_PKG_CONFIG"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_pt_PKG_CONFIG" >&5
-$as_echo "$ac_pt_PKG_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-  if test "x$ac_pt_PKG_CONFIG" = x; then
-    PKG_CONFIG=""
-  else
-    case $cross_compiling:$ac_tool_warned in
-yes:)
-{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: using cross tools not prefixed with host triplet" >&5
-$as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
-ac_tool_warned=yes ;;
-esac
-    PKG_CONFIG=$ac_pt_PKG_CONFIG
-  fi
-else
-  PKG_CONFIG="$ac_cv_path_PKG_CONFIG"
-fi
-
-fi
-if test -n "$PKG_CONFIG"; then
-	_pkg_min_version=0.9.0
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking pkg-config is at least version $_pkg_min_version" >&5
-$as_echo_n "checking pkg-config is at least version $_pkg_min_version... " >&6; }
-	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-	else
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-		PKG_CONFIG=""
-	fi
-fi
-if test -n "$PKG_CONFIG" && \
-    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"bdw-gc\""; } >&5
-  ($PKG_CONFIG --exists --print-errors "bdw-gc") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; }; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: using bdw-gc pkg-config module" >&5
-$as_echo "using bdw-gc pkg-config module" >&6; }
-else
-  as_fn_error $? "no --with-target-bdw-gc options and no bdw-gc pkg-config module found" "$LINENO" 5
-fi
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: using bdw-gc in default locations" >&5
+$as_echo "using bdw-gc in default locations" >&6; }
   else
         if test "x$with_target_bdw_gc_include" = x && test "x$with_target_bdw_gc_lib" != x; then
       as_fn_error $? "found --with-target-bdw-gc-lib but --with-target-bdw-gc-include missing" "$LINENO" 5
@@ -9202,19 +9032,6 @@ fi
 $as_echo "using paths configured with --with-target-bdw-gc options" >&6; }
     fi
   fi
-esac
-
-# Make sure we only build Boehm's garbage collector if required.
-case ,${enable_languages},:${enable_objc_gc} in
-  *,objc,*:yes|*,objc,*:auto)
-    # Keep target-boehm-gc if requested for Objective-C.
-    ;;
-  *)
-    # Otherwise remove target-boehm-gc depending on target-libjava.
-    if echo " ${noconfigdirs} " | grep "target-libjava" >/dev/null 2>&1; then
-      noconfigdirs="$noconfigdirs target-boehm-gc"
-    fi
-    ;;
 esac
 
 # Disable libitm, libsanitizer, libvtv, liboffloadmic if we're not building C++
