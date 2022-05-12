@@ -143,11 +143,6 @@ host_libs="intl libiberty opcodes bfd readline tcl tk itcl libgui zlib libbacktr
 # If --enable-gold is used, "gold" may replace "ld".
 host_tools="texinfo flex bison binutils gas ld fixincludes gcc cgen sid sim gdb gdbserver gprof etc expect dejagnu m4 utils guile fastjar gnattools libcc1 gotools c++tools"
 
-# libgcj represents the runtime libraries only used by gcj.
-libgcj="target-libffi \
-	target-zlib \
-	target-libjava"
-
 # these libraries are built for the target environment, and are built after
 # the host libraries and the host tools (which may be a cross compiler)
 # Note that libiberty is not a target library.
@@ -165,8 +160,7 @@ target_libraries="target-libgcc \
 		target-libssp \
 		target-libquadmath \
 		target-libgfortran \
-		target-boehm-gc \
-		${libgcj} \
+		target-libjava \
 		target-libffi \
 		target-libobjc \
 		target-libada \
@@ -516,26 +510,6 @@ else
     esac
 fi])
 AC_SUBST(extra_liboffloadmic_configure_flags)
-
-# Save it here so that, even in case of --enable-libgcj, if the Java
-# front-end isn't enabled, we still get libgcj disabled.
-libgcj_saved=$libgcj
-case $enable_libgcj in
-yes)
-  # If we reset it here, it won't get added to noconfigdirs in the
-  # target-specific build rules, so it will be forcibly enabled
-  # (unless the Java language itself isn't enabled).
-  libgcj=
-  ;;
-no)
-  # Make sure we get it printed in the list of not supported target libs.
-  # Don't disable libffi, though, other languages use it.
-  noconfigdirs="$noconfigdirs `echo ${libgcj} | sed -e 's/target-libffi//'`"
-  # Clear libgcj_saved so that even if java is enabled libffi won't be
-  # built.
-  libgcj_saved=
-  ;;
-esac
 
 AC_ARG_ENABLE(static-libjava,
 [AS_HELP_STRING([[--enable-static-libjava[=ARG]]],
@@ -2266,32 +2240,25 @@ done
 # Check for Boehm's garbage collector
 AC_ARG_ENABLE(objc-gc,
 [AS_HELP_STRING([--enable-objc-gc],
-               [enable use of Boehm's garbage collector with the
-                GNU Objective-C runtime])],
-[case ,${enable_languages},:${enable_objc_gc}:${noconfigdirs} in
-  *,objc,*:*:yes:*target-boehm-gc*)
-    AC_MSG_ERROR([Boehm's garbage collector was requested yet not supported in this configuration])
-    ;;
-esac])
+    [enable use of Boehm's garbage collector with the
+     GNU Objective-C runtime])])
 AC_ARG_WITH([target-bdw-gc],
 [AS_HELP_STRING([--with-target-bdw-gc=PATHLIST],
-               [specify prefix directory for installed bdw-gc package.
-                Equivalent to --with-target-bdw-gc-include=PATH/include
-                plus --with-target-bdw-gc-lib=PATH/lib])])
+    [specify prefix directory for installed bdw-gc package.
+     Equivalent to --with-target-bdw-gc-include=PATH/include
+     plus --with-target-bdw-gc-lib=PATH/lib])])
 AC_ARG_WITH([target-bdw-gc-include],
 [AS_HELP_STRING([--with-target-bdw-gc-include=PATHLIST],
-               [specify directories for installed bdw-gc include files])])
+    [specify directories for installed bdw-gc include files])])
 AC_ARG_WITH([target-bdw-gc-lib],
 [AS_HELP_STRING([--with-target-bdw-gc-lib=PATHLIST],
-               [specify directories for installed bdw-gc library])])
-                 
-case ,${enable_languages},:${enable_objc_gc} in *,objc,*:yes|*,objc,*:auto)
+    [specify directories for installed bdw-gc library])])
+
+case ,${enable_languages},:${enable_objc_gc} in *,java,*:*|*,objc,*:yes|*,objc,*:auto)
   AC_MSG_CHECKING([for bdw garbage collector])
   if test "x$with_target_bdw_gc$with_target_bdw_gc_include$with_target_bdw_gc_lib" = x; then
-    dnl no bdw-gw options, fall back to the bdw-gc pkg-config module
-    PKG_CHECK_EXISTS(bdw-gc,
-      AC_MSG_RESULT([using bdw-gc pkg-config module]),
-      AC_MSG_ERROR([no --with-target-bdw-gc options and no bdw-gc pkg-config module found]))
+    dnl no bdw-gw options, assume default locations
+    AC_MSG_RESULT([using bdw-gc in default locations])
   else
     dnl bdw-gw options, first error checking, complete checking in libobjc
     if test "x$with_target_bdw_gc_include" = x && test "x$with_target_bdw_gc_lib" != x; then
@@ -2302,19 +2269,6 @@ case ,${enable_languages},:${enable_objc_gc} in *,objc,*:yes|*,objc,*:auto)
       AC_MSG_RESULT([using paths configured with --with-target-bdw-gc options])
     fi
   fi
-esac
-
-# Make sure we only build Boehm's garbage collector if required.
-case ,${enable_languages},:${enable_objc_gc} in
-  *,objc,*:yes|*,objc,*:auto)
-    # Keep target-boehm-gc if requested for Objective-C.
-    ;;
-  *)
-    # Otherwise remove target-boehm-gc depending on target-libjava.
-    if echo " ${noconfigdirs} " | grep "target-libjava" >/dev/null 2>&1; then
-      noconfigdirs="$noconfigdirs target-boehm-gc"
-    fi
-    ;;
 esac
 
 # Disable libitm, libsanitizer, libvtv, liboffloadmic if we're not building C++
