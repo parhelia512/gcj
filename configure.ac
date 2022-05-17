@@ -511,6 +511,26 @@ else
 fi])
 AC_SUBST(extra_liboffloadmic_configure_flags)
 
+# Save it here so that, even in case of --enable-libgcj, if the Java
+# front-end isn't enabled, we still get libgcj disabled.
+libgcj_saved=$libgcj
+case $enable_libgcj in
+yes)
+  # If we reset it here, it won't get added to noconfigdirs in the
+  # target-specific build rules, so it will be forcibly enabled
+  # (unless the Java language itself isn't enabled).
+  libgcj=
+  ;;
+no)
+  # Make sure we get it printed in the list of not supported target libs.
+  # Don't disable libffi, though, other languages use it.
+  noconfigdirs="$noconfigdirs `echo ${libgcj} | sed -e 's/target-libffi//'`"
+  # Clear libgcj_saved so that even if java is enabled libffi won't be
+  # built.
+  libgcj_saved=
+  ;;
+esac
+
 AC_ARG_ENABLE(static-libjava,
 [AS_HELP_STRING([[--enable-static-libjava[=ARG]]],
                [build static libjava @<:@default=no@:>@])],
