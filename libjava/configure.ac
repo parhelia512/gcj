@@ -722,7 +722,7 @@ if test "$enable_java_net" = no; then
 fi
 
 # See if the user wants to configure without libffi.  Some
-# architectures don't support it, and default values are set in 
+# architectures don't support it, and default values are set in
 # configure.host.
 AC_ARG_WITH(libffi,
   AS_HELP_STRING([--without-libffi],
@@ -739,6 +739,7 @@ if test "$with_libffi" != no; then
 fi
 AC_SUBST(LIBFFI)
 AC_SUBST(LIBFFIINCS)
+AM_CONDITIONAL(USE_LIBFFI, test "$with_libffi" != "no")
 
 # See if the user wants to disable JVMPI support.
 AC_ARG_ENABLE(jvmpi,
