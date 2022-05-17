@@ -644,7 +644,6 @@ class LibJavaFilter (GenericFilter):
 
                 # Imported from upstream
                 'classpath',
-                'libltdl',
                 ])
 
     def get_line_filter (self, dir, filename):
