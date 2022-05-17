@@ -252,11 +252,6 @@ AC_SUBST(LIBGCJ_LD_SYMBOLIC)
 AC_SUBST(LIBGCJ_LD_SYMBOLIC_FUNCTIONS)
 AC_SUBST(LIBGCJ_LD_EXPORT_ALL)
 
-# Only use libltdl for non-newlib builds.
-if test "x${with_newlib}" = "x" || test "x${with_newlib}" = "xno"; then
-   AC_LTDL_SHLIBPATH
-fi
-
 AC_CONFIG_HEADERS([include/config.h gcj/libgcj-config.h])
 
 # Possibly build libgcj as many sub-libraries.
