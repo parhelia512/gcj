@@ -37,7 +37,7 @@ The Free Software Foundation is independent of Sun Microsystems, Inc.  */
 #define ALLOC xmalloc
 #define REALLOC xrealloc
 #ifndef FREE
-#define FREE(void *) free(void *)
+#define FREE(PTR) free(PTR)
 #endif
 
 #ifdef JCF_word

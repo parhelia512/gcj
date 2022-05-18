@@ -3002,7 +3002,7 @@ note_instructions (JCF *jcf, tree method)
   jint INT_temp;
 
 #undef RET /* Defined by config/i386/i386.h */
-#undef void *
+#undef PTR
 #define BCODE byte_ops
 #define BYTE_type_node byte_type_node
 #define SHORT_type_node short_type_node
