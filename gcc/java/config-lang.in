@@ -32,7 +32,7 @@ language="java"
 
 compilers="jc1\$(exeext) jvgenmain\$(exeext)"
 
-target_libs=${libgcj_saved}
+target_libs="target-libjava target-libffi target-zlib"
 lang_dirs="fastjar"
 
 build_by_default=no
