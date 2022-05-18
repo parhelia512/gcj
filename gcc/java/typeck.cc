@@ -347,8 +347,8 @@ promote_type (tree type)
     }
 }
 
-/* Parse a signature string, starting at *PTR and ending at LIMIT.
-   Return the seen TREE_TYPE, updating *PTR. */
+/* Parse a signature string, starting at *ptr and ending at LIMIT.
+   Return the seen TREE_TYPE, updating *ptr. */
 
 static tree
 parse_signature_type (const unsigned char **ptr, const unsigned char *limit)

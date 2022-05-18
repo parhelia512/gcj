@@ -1956,7 +1956,7 @@ pop_arguments (tree method_type)
   return args;
 }
 
-/* Attach to PTR (a block) the declaration found in ENTRY. */
+/* Attach to void * (a block) the declaration found in ENTRY. */
 
 int
 attach_init_test_initialization_flags (treetreehash_entry **slot, tree block)
@@ -3002,7 +3002,7 @@ note_instructions (JCF *jcf, tree method)
   jint INT_temp;
 
 #undef RET /* Defined by config/i386/i386.h */
-#undef PTR
+#undef void *
 #define BCODE byte_ops
 #define BYTE_type_node byte_type_node
 #define SHORT_type_node short_type_node

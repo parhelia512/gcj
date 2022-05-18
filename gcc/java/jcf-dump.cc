@@ -1472,7 +1472,7 @@ main (int argc, char** argv)
 static void
 disassemble_method (JCF* jcf, const unsigned char *byte_ops, int len)
 {
-#undef PTR
+#undef void *
   int PC;
   int i;
   int saw_wide = 0;
