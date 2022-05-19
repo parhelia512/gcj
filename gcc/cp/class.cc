@@ -8325,7 +8325,7 @@ push_lang_context (tree name)
     {
       current_lang_name = name;
       /* DECL_IGNORED_P is initially set for these types, to avoid clutter.
-	 (See record_builtin_java_type in decl.c.)  However, that causes
+	 (See record_builtin_java_type in decl.cc.)  However, that causes
 	 incorrect debug entries if these types are actually used.
 	 So we re-enable debug output after extern "Java".  */
       DECL_IGNORED_P (TYPE_NAME (java_byte_type_node)) = 0;
