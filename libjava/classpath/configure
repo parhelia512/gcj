@@ -1713,7 +1713,7 @@ Optional Features:
   --enable-regen-gjdoc-parser
                           automatically regenerate the GJDoc parser
                           default=yes if generated source doesn't exist
-  --enable-tool-wrappers  create tool wrapper binaries default=no
+  --enable-tool-wrappers  create tool wrapper binaries default=yes
   --enable-static[=PKGS]  build static libraries [default=no]
   --enable-shared[=PKGS]  build shared libraries [default=yes]
   --enable-fast-install[=PKGS]
