@@ -695,7 +695,6 @@ GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
 HASH_SYNC_SPEC = @HASH_SYNC_SPEC@
 IEEESPEC = @IEEESPEC@
-INCLTDL = @INCLTDL@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -737,7 +736,6 @@ LIBGCJ_SPEC = @LIBGCJ_SPEC@
 LIBGCJ_SUBLIB_CORE_EXTRA_DEPS = @LIBGCJ_SUBLIB_CORE_EXTRA_DEPS@
 LIBGCJ_SUBLIB_LTFLAGS = @LIBGCJ_SUBLIB_LTFLAGS@
 LIBICONV = @LIBICONV@
-LIBLTDL = @LIBLTDL@
 LIBMATHSPEC = @LIBMATHSPEC@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
@@ -747,8 +745,6 @@ LIBSTDCXX_RAW_CXX_LDFLAGS = @LIBSTDCXX_RAW_CXX_LDFLAGS@
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
-LTDLDEPS = @LTDLDEPS@
-LTDLINCL = @LTDLINCL@
 LTLIBICONV = @LTLIBICONV@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
@@ -894,7 +890,7 @@ ACLOCAL_AMFLAGS = -I . -I .. -I ../config
 
 # May be used by various substitution variables.
 gcc_version := $(shell cat $(top_srcdir)/../gcc/BASE-VER)
-SUBDIRS = $(DIRLTDL) gcj include classpath $(am__append_1)
+SUBDIRS = gcj include classpath $(am__append_1)
 
 # write_entries_to_file - writes each entry in a list
 # to the specified file.  Entries are written in chunks of
@@ -1170,7 +1166,7 @@ AM_CPPFLAGS = -I$(top_srcdir) \
 	-I$(top_srcdir)/classpath/include \
 	-Iclasspath/include \
 	-I$(top_srcdir)/classpath/native/fdlibm \
-	$(GCINCS) $(THREADINCS) $(INCLTDL) \
+	$(GCINCS) $(THREADINCS) \
 	$(LIBGCC_UNWIND_INCLUDE) $(ZINCS) $(LIBFFIINCS)
 
 BOOTCLASSPATH = $(srcdir)/classpath/lib
@@ -1196,7 +1192,7 @@ xlib_nat_files = $(xlib_nat_source_files:.cc=.lo)
 # Include THREADLIBS here to ensure that the correct version of
 # certain linuxthread functions get linked:
 libgcj_la_LDFLAGS = -rpath $(toolexeclibdir) $(THREADLDFLAGS) $(extra_ldflags) $(THREADLIBS) \
-	$(LIBLTDL) $(SYS_ZLIBS) $(LIBJAVA_LDFLAGS_NOUNDEF) \
+	$(SYS_ZLIBS) $(LIBJAVA_LDFLAGS_NOUNDEF) \
 	-version-info `grep -v '^\#' $(srcdir)/libtool-version` \
 	$(LIBGCJ_LD_SYMBOLIC_FUNCTIONS) $(LIBGCJ_LD_EXPORT_ALL)
 
@@ -1213,7 +1209,7 @@ libgcj_la_DEPENDENCIES = libgcj-$(gcc_version).jar \
 	java/lang/Class.lo \
 	java/process-$(PLATFORM).lo \
 	$(ALL_PACKAGE_SOURCE_FILES_LO) \
-	$(LIBLTDL) $(libgcj_la_LIBADD) \
+	$(libgcj_la_LIBADD) \
 	$(LIBJAVA_CORE_EXTRA) \
 	$(libgcj_la_version_dep)
 
@@ -1223,7 +1219,7 @@ EXTRA_libgcj_la_SOURCES = java/lang/Object.java
 @BUILD_SUBLIBS_TRUE@libgcj_noncore_la_SOURCES = 
 @BUILD_SUBLIBS_TRUE@libgcj_noncore_la_LDFLAGS = $(libgcj_la_LDFLAGS)
 @BUILD_SUBLIBS_TRUE@libgcj_noncore_la_LIBADD = $(libgcj_noncore_la_LIBADD_SUBOBJECTS) libgcj.la
-@BUILD_SUBLIBS_TRUE@libgcj_noncore_la_DEPENDENCIES = libgcj-$(gcc_version).jar $(LIBLTDL) \
+@BUILD_SUBLIBS_TRUE@libgcj_noncore_la_DEPENDENCIES = libgcj-$(gcc_version).jar \
 @BUILD_SUBLIBS_TRUE@		$(libgcj_noncore_la_LIBADD) libgcj.la $(libgcj_la_version_dep)
 
 @BUILD_SUBLIBS_TRUE@libgcj_noncore_la_LINK = $(libgcj_la_LINK)

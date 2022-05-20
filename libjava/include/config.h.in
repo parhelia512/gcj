@@ -164,6 +164,9 @@
 /* Define to 1 if you have the `lstat' function. */
 #undef HAVE_LSTAT
 
+/* Define to 1 if you have the <ltdl.h> header file. */
+#undef HAVE_LTDL_H
+
 /* Define to 1 if you have the <magic.h> header file. */
 #undef HAVE_MAGIC_H
 

@@ -549,17 +549,15 @@ dnl --with-javah=$GCJH
 dnl gtk-cairo -- just export here...
 dnl --enable-regen-headers?
 
-# Only use libltdl for non-newlib builds.
-if test "x${with_newlib}" = "x" || test "x${with_newlib}" = "xno"; then
-   AC_LIBLTDL_CONVENIENCE
-   AC_LIBTOOL_DLOPEN
-   AC_DEFINE(USE_LTDL, 1, [Define if libltdl is in use.])
-   # FIXME: this is a hack.
-   sub_auxdir="`cd $ac_aux_dir && ${PWDCMD-pwd}`"
-   ac_configure_args="$ac_configure_args --with-auxdir=$sub_auxdir"
+LT_INIT()
+AC_CHECK_HEADERS(ltdl.h)
+if test "$ac_cv_header_ltdl_h" = "no"; then
+  AC_DEFINE(USE_LTDL, 0, [Define if libltdl is in use.])
+  AC_MSG_ERROR(cannot find ltdl.h)
+else
+  AC_DEFINE(USE_LTDL, 1, [Define if libltdl is in use.])
 fi
-AC_SUBST(LIBLTDL)
-LT_INIT
+
 ACX_LT_HOST_FLAGS
 AM_PROG_GCJ
 AM_PROG_CC_C_O
