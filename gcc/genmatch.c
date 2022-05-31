@@ -2860,7 +2860,7 @@ dt_operand::gen_gimple_expr (FILE *f, int indent)
       gen_opname (child_opname0, opno);
       gen_opname (child_opname1, opno + 1);
       fprintf_indent (f, indent,
-		      "if (tree_swap_operands_p (%s, %s))\n",
+		      "if (tree_swap_operands_p (%s, %s, false))\n",
 		      child_opname0, child_opname1);
       fprintf_indent (f, indent,
 		      "  std::swap (%s, %s);\n",
