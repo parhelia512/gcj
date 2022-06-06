@@ -3171,12 +3171,6 @@ build_new_1 (vec<tree, va_gc> **placement, tree type, tree nelts,
 
 bool member_new_p = false;
 
-  bool member_delete_p = (!globally_qualified_p
-			  && CLASS_TYPE_P (elt_type)
-			  && (array_p
-			      ? TYPE_GETS_VEC_DELETE (elt_type)
-			      : TYPE_GETS_REG_DELETE (elt_type)));
-
   /* Allocate the object.  */
   if (vec_safe_is_empty (*placement) && TYPE_FOR_JAVA (elt_type))
     {
@@ -3263,7 +3257,7 @@ bool member_new_p = false;
 	  /* Create the argument list.  */
 	  vec_safe_insert (*placement, 0, size);
 	  /* Do name-lookup to find the appropriate operator.  */
-	  fns = lookup_fnfields (elt_type, fnname, /*protect=*/2, complain);
+	  fns = lookup_fnfields (elt_type, fnname, /*protect=*/2);
 	  if (fns == NULL_TREE)
 	    {
               if (complain & tf_error)
