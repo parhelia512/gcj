@@ -138,5 +138,6 @@ jcf_dependency_write (void)
     deps_write (dependencies, dep_out, 1, 72);
   else
     deps_write (dependencies, dep_out, 0, 72);
+
   fflush (dep_out);
 }
