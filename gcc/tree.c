@@ -5949,7 +5949,7 @@ find_decls_types_r (tree *tp, int *ws, void *data)
 	  unsigned i;
 	  tree tem;
 	  FOR_EACH_VEC_ELT (*BINFO_BASE_BINFOS (TYPE_BINFO (t)), i, tem)
-	    fld_worklist_push (TREE_TYPE (tem), fld);c
+	    fld_worklist_push (TREE_TYPE (tem), fld);
     tem = BINFO_VIRTUALS (TYPE_BINFO (t));
     if (tem
         /* The Java FE overloads BINFO_VIRTUALS for its own purpose.  */
