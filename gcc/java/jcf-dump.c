@@ -1118,7 +1118,7 @@ print_exception_table (JCF *jcf, const unsigned char *entries, int count)
     }
 }
 
-#include "jcf-reader.cc"
+#include "jcf-reader.c"
 
 static void
 process_class (JCF *jcf)

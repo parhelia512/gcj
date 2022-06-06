@@ -214,7 +214,7 @@ java_handle_option (size_t scode, const char *arg, HOST_WIDE_INT value,
       break;
 
     case OPT_MP:
-      cpp_opts->deps.phony_targets = true;
+      jcf_dependency_print_dummies ();
       break;
 
     case OPT_MT:
