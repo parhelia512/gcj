@@ -73,6 +73,7 @@ static void record_unknown_type (tree, const char *);
 static tree builtin_function_1 (tree, tree, bool);
 static int member_function_or_else (tree, tree, enum overload_flags);
 static tree local_variable_p_walkfn (tree *, int *, void *);
+static tree record_builtin_java_type (const char *, int);
 static const char *tag_name (enum tag_types);
 static tree lookup_and_check_tag (enum tag_types, tree, tag_scope, bool);
 static void maybe_deduce_size_from_array_init (tree, tree);
@@ -3974,6 +3975,53 @@ record_builtin_type (enum rid rid_index,
     }
 }
 
+/* Record one of the standard Java types.
+ * Declare it as having the given NAME.
+ * If SIZE > 0, it is the size of one of the integral types;
+ * otherwise it is the negative of the size of one of the other types.  */
+
+static tree
+record_builtin_java_type (const char* name, int size)
+{
+  tree type, decl;
+  if (size > 0)
+    {
+      type = build_nonstandard_integer_type (size, 0);
+      type = build_distinct_type_copy (type);
+    }
+  else if (size > -32)
+    {
+      tree stype;
+      /* "__java_char" or ""__java_boolean".  */
+      type = build_nonstandard_integer_type (-size, 1);
+      type = build_distinct_type_copy (type);
+      /* Get the signed type cached and attached to the unsigned type,
+        so it doesn't get garbage-collected at "random" times,
+        causing potential codegen differences out of different UIDs
+        and different alias set numbers.  */
+      stype = build_nonstandard_integer_type (-size, 0);
+      stype = build_distinct_type_copy (stype);
+      TREE_CHAIN (type) = stype;
+      /*if (size == -1)        TREE_SET_CODE (type, BOOLEAN_TYPE);*/
+    }
+  else
+    { /* "__java_float" or ""__java_double".  */
+      type = make_node (REAL_TYPE);
+      TYPE_PRECISION (type) = - size;
+      layout_type (type);
+    }
+  record_builtin_type (RID_MAX, name, type);
+  decl = TYPE_NAME (type);
+
+  /* Suppress generate debug symbol entries for these types,
+     since for normal C++ they are just clutter.
+     However, push_lang_context undoes this if extern "Java" is seen.  */
+  DECL_IGNORED_P (decl) = 1;
+
+  TYPE_FOR_JAVA (type) = 1;
+  return type;
+}
+
 /* Push a type into the namespace so that the back ends ignore it.  */
 
 static void
@@ -4006,6 +4054,7 @@ initialize_predefined_identifiers (void)
   static const predefined_identifier predefined_identifiers[] = {
     {"C++", &lang_name_cplusplus, cik_normal},
     {"C", &lang_name_c, cik_normal},
+    { "Java", &lang_name_java, cik_normal},
     /* Some of these names have a trailing space so that it is
        impossible for them to conflict with names written by users.  */
     {"__ct ", &ctor_identifier, cik_ctor},
@@ -4101,6 +4150,15 @@ cxx_init_decl_processing (void)
 		"%<-ffriend-injection%> is deprecated");
 
   c_common_nodes_and_builtins ();
+
+  java_byte_type_node = record_builtin_java_type ("__java_byte", 8);
+  java_short_type_node = record_builtin_java_type ("__java_short", 16);
+  java_int_type_node = record_builtin_java_type ("__java_int", 32);
+  java_long_type_node = record_builtin_java_type ("__java_long", 64);
+  java_float_type_node = record_builtin_java_type ("__java_float", -32);
+  java_double_type_node = record_builtin_java_type ("__java_double", -64);
+  java_char_type_node = record_builtin_java_type ("__java_char", -16);
+  java_boolean_type_node = record_builtin_java_type ("__java_boolean", -1);
 
   integer_two_node = build_int_cst (NULL_TREE, 2);
 
@@ -7034,6 +7092,19 @@ cp_finish_decl (tree decl, tree init, bool init_const_expr_p,
 	     is *not* defined.  */
 	  && (!DECL_EXTERNAL (decl) || init))
 	{
+      if (TYPE_FOR_JAVA (type) && MAYBE_CLASS_TYPE_P (type))
+       {
+         tree jclass = get_global_binding (get_identifier ("jclass"));
+         /* Allow libjava/prims.cc define primitive classes.  */
+         if (init != NULL_TREE
+             || jclass == NULL_TREE
+             || TREE_CODE (jclass) != TYPE_DECL
+             || !POINTER_TYPE_P (TREE_TYPE (jclass))
+             || !same_type_ignoring_top_level_qualifiers_p
+                                   (type, TREE_TYPE (TREE_TYPE (jclass))))
+             error ("Java object %qD not allocated with %<new%>", decl);
+           init = NULL_TREE;
+       }    
 	  cleanups = make_tree_vector ();
 	  init = check_initializer (decl, init, flags, &cleanups);
 
