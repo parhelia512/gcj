@@ -1568,32 +1568,38 @@ parse_class_file (void)
     {
       JCF *jcf = current_jcf;
 
-      if (METHOD_ABSTRACT (method) || METHOD_DUMMY (method))
-	continue;
+      if (TREE_CODE (method) == FUNCTION_DECL)
+      {
+        if (METHOD_ABSTRACT (method) || METHOD_DUMMY (method))
+          continue;
+      }
 
-      if (METHOD_NATIVE (method))
-	{
-	  tree arg;
-	  int  decl_max_locals;
+      if (TREE_CODE (method) == FUNCTION_DECL)
+      {
+        if (METHOD_NATIVE (method))
+        {
+          tree arg;
+          int  decl_max_locals;
 
-	  if (! flag_jni)
-	    continue;
-	  /* We need to compute the DECL_MAX_LOCALS. We need to take
+          if (! flag_jni)
+            continue;
+          /* We need to compute the DECL_MAX_LOCALS. We need to take
              the wide types into account too. */
-	  for (arg = TYPE_ARG_TYPES (TREE_TYPE (method)), decl_max_locals = 0; 
-	       arg != end_params_node;
-	       arg = TREE_CHAIN (arg), decl_max_locals += 1)
-	    {
-	      if (TREE_VALUE (arg) && TYPE_IS_WIDE (TREE_VALUE (arg)))
-		decl_max_locals += 1;
-	    }
-	  DECL_MAX_LOCALS (method) = decl_max_locals;
-	  start_java_method (method);
-	  give_name_to_locals (jcf);
-	  *get_stmts () = build_jni_stub (method);
-	  end_java_method ();
-	  continue;
-	}
+          for (arg = TYPE_ARG_TYPES (TREE_TYPE (method)), decl_max_locals = 0; 
+               arg != end_params_node;
+               arg = TREE_CHAIN (arg), decl_max_locals += 1)
+            {
+              if (TREE_VALUE (arg) && TYPE_IS_WIDE (TREE_VALUE (arg)))
+                decl_max_locals += 1;
+            }
+          DECL_MAX_LOCALS (method) = decl_max_locals;
+          start_java_method (method);
+          give_name_to_locals (jcf);
+          *get_stmts () = build_jni_stub (method);
+          end_java_method ();
+          continue;
+        }        
+      }
 
       if (DECL_CODE_OFFSET (method) == 0)
 	{

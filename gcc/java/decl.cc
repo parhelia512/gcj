@@ -1940,17 +1940,22 @@ void
 java_mark_class_local (tree klass)
 {
   for (tree t = TYPE_FIELDS (klass); t ; t = DECL_CHAIN (t))
-    if (FIELD_STATIC (t))
-      java_mark_decl_local (t);
+    if (((TREE_CODE (t) == VAR_DECL)) || ((TREE_CODE (t) == PARM_DECL)) ||
+       ((TREE_CODE (t) == FIELD_DECL)))
+      if (FIELD_STATIC (t))
+        java_mark_decl_local (t);
 
   for (tree t = TYPE_FIELDS (klass); t ; t = DECL_CHAIN (t))
-    if (!METHOD_ABSTRACT (t))
-      {
-	if (METHOD_NATIVE (t) && !flag_jni)
-	  java_mark_cni_decl_local (t);
-        else
-	  java_mark_decl_local (t);
-      }
+    if (TREE_CODE (t) == FUNCTION_DECL)
+    {
+      if (!METHOD_ABSTRACT (t))
+        {
+	  if (METHOD_NATIVE (t) && !flag_jni)
+	    java_mark_cni_decl_local (t);
+          else
+	    java_mark_decl_local (t);
+        }
+    }
 }
 
 /* Add a statement to a compound_expr.  */

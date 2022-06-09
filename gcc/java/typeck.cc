@@ -461,25 +461,29 @@ tree
 build_java_argument_signature (tree type)
 {
   extern struct obstack temporary_obstack;
-  tree sig = TYPE_ARGUMENT_SIGNATURE (type);
-  if (sig == NULL_TREE)
-    {
-      tree args = TYPE_ARG_TYPES (type);
-      if (TREE_CODE (type) == METHOD_TYPE)
-	args = TREE_CHAIN (args);  /* Skip "this" argument. */
-      for (; args != end_params_node; args = TREE_CHAIN (args))
-	{
-	  tree t = build_java_signature (TREE_VALUE (args));
-	  obstack_grow (&temporary_obstack,
-			IDENTIFIER_POINTER (t), IDENTIFIER_LENGTH (t));
-	}
-      obstack_1grow (&temporary_obstack, '\0');
+  if (((TREE_CODE (TREE_TYPE (type)) == FUNCTION_TYPE)) ||
+        ((TREE_CODE (TREE_TYPE (type)) == METHOD_TYPE)))
+  {
+    tree sig = TYPE_ARGUMENT_SIGNATURE (type);
+    if (sig == NULL_TREE)
+      {
+        tree args = TYPE_ARG_TYPES (type);
+        if (TREE_CODE (type) == METHOD_TYPE)
+	  args = TREE_CHAIN (args);  /* Skip "this" argument. */
+        for (; args != end_params_node; args = TREE_CHAIN (args))
+	  {
+	    tree t = build_java_signature (TREE_VALUE (args));
+	    obstack_grow (&temporary_obstack,
+	  		  IDENTIFIER_POINTER (t), IDENTIFIER_LENGTH (t));
+	  }
+        obstack_1grow (&temporary_obstack, '\0');
 
-      sig = get_identifier ((char *) obstack_base (&temporary_obstack));
-      TYPE_ARGUMENT_SIGNATURE (type) = sig;
-      obstack_free (&temporary_obstack, obstack_base (&temporary_obstack));
-    }
+        sig = get_identifier ((char *) obstack_base (&temporary_obstack));
+        TYPE_ARGUMENT_SIGNATURE (type) = sig;
+        obstack_free (&temporary_obstack, obstack_base (&temporary_obstack));
+      }
   return sig;
+  }
 }
 
 /* Return the signature of the given TYPE. */
@@ -779,8 +783,11 @@ lookup_java_constructor (tree clas, tree method_signature)
   for ( ; method != NULL_TREE;  method = DECL_CHAIN (method))
     {
       tree method_sig = build_java_signature (TREE_TYPE (method));
-      if (DECL_CONSTRUCTOR_P (method) && method_sig == method_signature)
-	return method;
+      if (TREE_CODE (method) == FUNCTION_DECL)
+      {
+        if (DECL_CONSTRUCTOR_P (method) && method_sig == method_signature)
+          return method;
+      }
     }
   return NULL_TREE;
 }
