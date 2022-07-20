@@ -27,6 +27,7 @@ jobs:
                    build-essential \
                    gcc-multilib \
                    g++-multilib \
+                   libgc-dev
     - name: Configure
       run: |
            mkdir -p gcj-build;
