@@ -1355,8 +1355,9 @@ else
      esac
 
      AC_CACHE_CHECK([for struct hostent_data],
-	[libjava_cv_struct_hostent_data], [dnl
-	AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
+	[libjava_cv_struct_hostent_data], [
+  AC_LANG_PUSH(C++)
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #if GETHOSTBYNAME_R_NEEDS_REENTRANT && !defined(_REENTRANT)
 # define _REENTRANT 1
 #endif
@@ -1367,6 +1368,7 @@ else
        AC_DEFINE(HAVE_STRUCT_HOSTENT_DATA, 1,
          [Define if struct hostent_data is defined in netdb.h])
      fi
+   AC_LANG_POP(C++)
    ])
 
    # FIXME: libjava source code expects to find a prototype for
