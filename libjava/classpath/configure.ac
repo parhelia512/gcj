@@ -445,6 +445,7 @@ dnl -----------------------------------------------------------
 dnl Initialize libtool
 AC_DISABLE_STATIC
 LT_INIT
+LT_SYS_MODULE_PATH
 AC_PROG_AWK
 AC_PROG_CC
 AM_PROG_CC_C_O

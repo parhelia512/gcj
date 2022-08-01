@@ -380,7 +380,7 @@ gnu::classpath::SystemProperties::insertSystemProperties (::java::util::Properti
     {
       // Set a value for user code to see.
 #ifdef USE_LTDL
-      char *libpath = getenv (LT_SYS_MODULE_PATH); // present in /usr/share/aclocal/ltdl.m4 i think
+      char *libpath = getenv (LT_MODULE_PATH_VAR);
       char* val = _Jv_PrependVersionedLibdir (libpath);
       SET ("java.library.path", val);
       _Jv_SetDLLSearchPath (val);

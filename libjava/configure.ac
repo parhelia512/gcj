@@ -559,6 +559,7 @@ AC_CHECK_LIB(tdl, lt_dlforeach,
              AC_DEFINE(USE_LTDL, 1, [Define if libltdl is in use.]),
              AC_DEFINE(USE_LTDL, 0, [Define if libltdl is in use.]))
 
+LT_SYS_MODULE_PATH
 ACX_LT_HOST_FLAGS
 AM_PROG_GCJ
 AM_PROG_CC_C_O

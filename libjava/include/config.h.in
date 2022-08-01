@@ -379,6 +379,10 @@
 /* Define if using POSIX threads on Linux. */
 #undef LINUX_THREADS
 
+/* Define to the name of the environment variable that determines the run-time
+   module search path. */
+#undef LT_MODULE_PATH_VAR
+
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
 #undef LT_OBJDIR
