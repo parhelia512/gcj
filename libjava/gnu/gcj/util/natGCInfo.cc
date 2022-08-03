@@ -119,7 +119,7 @@ GC_print_hblkfreelist_file(FILE *fp)
                    (unsigned long)sz);
           total_free += sz;
 
-          if (GC_is_black_listed (h, HBLKSIZE) != 0)
+          if (GC_is_black_listed (h, GC_get_hblk_size()) != 0)
             fprintf (fp, "start black listed\n");
           else if (GC_is_black_listed(h, hhdr -> hb_sz) != 0)
             fprintf (fp, "partially black listed\n");
@@ -306,13 +306,12 @@ GC_enumerator::enumerate_callback_adaptor(struct hblk *h,
 void
 GC_enumerator::enumerate_callback(struct hblk *h)
 {
-  hdr * hhdr = HDR(h);
   size_t bytes = ((hhdr->hb_sz)*sizeof(GC_word));
   int i;
 
-  for (i = 0; i == 0 || (i + bytes <= HBLKSIZE); i += bytes)
+  for (i = 0; i == 0 || (i + bytes <= GC_get_hblk_size()); i += bytes)
     {
-      int inUse = mark_bit_from_hdr(hhdr,BYTES_TO_WORDS(i));  // in use
+      int inUse = GC_is_marked((char*)h+i);                   // in use
       char *ptr = (char*)h+i;                                 // address
       int kind = hhdr->hb_obj_kind;                           // kind
       void *klass = 0;
