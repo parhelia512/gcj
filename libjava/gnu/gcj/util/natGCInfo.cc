@@ -53,7 +53,9 @@
 #endif
 
 extern "C" {
-#include "private/dbg_mlc.h"
+#include "gc/gc.h"
+#include "gc/gc_gcj.h"
+#include "gc/gc_mark.h"
   int GC_n_set_marks(hdr* hhdr);
   ptr_t GC_clear_stack(ptr_t p);
   extern int GC_gcj_kind;
@@ -76,10 +78,10 @@ struct gc_debug_info
 };
 
 static void
-GC_print_debug_callback(hblk *h, word user_data)
+GC_print_debug_callback(hblk *h, GC_word user_data)
 {
   hdr *hhdr = HDR(h);
-  size_t bytes = WORDS_TO_BYTES(hhdr -> hb_sz);
+  size_t bytes = ((hhdr -> hb_sz)*sizeof(GC_word));
 
   gc_debug_info *pinfo = (gc_debug_info *)user_data;
 
@@ -87,35 +89,13 @@ GC_print_debug_callback(hblk *h, word user_data)
           (unsigned long)h, hhdr->hb_obj_kind, bytes, GC_n_set_marks(hhdr));
 }
 
-/*
-  this next section of definitions shouldn't really be here.
-  copied from boehmgc/allchblk.c
-*/
-
-# define UNIQUE_THRESHOLD 32
-# define HUGE_THRESHOLD 256
-# define FL_COMPRESSION 8
-# define N_HBLK_FLS (HUGE_THRESHOLD - UNIQUE_THRESHOLD)/FL_COMPRESSION \
-                         + UNIQUE_THRESHOLD
-#ifndef USE_MUNMAP
-extern "C" {
-  extern word GC_free_bytes[N_HBLK_FLS+1];
-}
-#endif
-
-# ifdef USE_MUNMAP
-#   define IS_MAPPED(hhdr) (((hhdr) -> hb_flags & WAS_UNMAPPED) == 0)
-# else  /* !USE_MMAP */
-#   define IS_MAPPED(hhdr) 1
-# endif /* USE_MUNMAP */
-
 static void
 GC_print_hblkfreelist_file(FILE *fp)
 {
   struct hblk * h;
-  word total_free = 0;
+  GC_word total_free = 0;
   hdr * hhdr;
-  word sz;
+  GC_word sz;
   int i;
     
   fprintf(fp, "---------- Begin free map ----------\n");
@@ -173,7 +153,7 @@ GC_print_debug_info_file(FILE* fp)
   if (gc_ok)
     GC_gcollect();
   fprintf(info.fp, "---------- Begin block map ----------\n");
-  GC_apply_to_all_blocks(GC_print_debug_callback, (word)(void*)(&info));
+  GC_apply_to_all_blocks(GC_print_debug_callback, (GC_word)(void*)(&info));
   //fprintf(fp, "#Total used %d free %d wasted %d\n", info.used, info.free, info.wasted);
   //fprintf(fp, "#Total blocks %d; %dK bytes\n", info.blocks, info.blocks*4);
   fprintf(info.fp, "---------- End block map ----------\n");
@@ -195,7 +175,7 @@ namespace
 
     void print_address_map();
     void enumerate_callback(struct hblk *h);
-    static void enumerate_callback_adaptor(struct hblk *h, word dummy);
+    static void enumerate_callback_adaptor(struct hblk *h, GC_word dummy);
   };
 }
 
@@ -300,7 +280,7 @@ GC_enumerator::enumerate()
   if (gc_ok)
     GC_gcollect();
   GC_apply_to_all_blocks(enumerate_callback_adaptor, 
-                         (word)(void*)(this));
+                         (GC_word)(void*)(this));
   fprintf(fp, "---------- End object map ----------\n");
   fflush(fp); 
 
@@ -317,7 +297,7 @@ GC_enumerator::enumerate()
 
 void
 GC_enumerator::enumerate_callback_adaptor(struct hblk *h,
-                                          word dummy)
+                                          GC_word dummy)
 {
   GC_enumerator* pinfo = (GC_enumerator*)dummy;
   pinfo->enumerate_callback(h);
@@ -327,7 +307,7 @@ void
 GC_enumerator::enumerate_callback(struct hblk *h)
 {
   hdr * hhdr = HDR(h);
-  size_t bytes = WORDS_TO_BYTES(hhdr->hb_sz);
+  size_t bytes = ((hhdr->hb_sz)*sizeof(GC_word));
   int i;
 
   for (i = 0; i == 0 || (i + bytes <= HBLKSIZE); i += bytes)
