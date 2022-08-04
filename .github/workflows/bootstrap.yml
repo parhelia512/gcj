@@ -1,0 +1,42 @@
+name: Bootstrap
+
+on:
+  push:
+    branches: [msterstable]
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: gcj
+
+    - name: Install Deps
+      run: |
+           sudo apt update
+           sudo apt install -y build-essential gcc-multilib g++-multilib \
+                               libgmp3-dev libmpfr-dev libmpc-dev \
+                               automake-1.15 autoconf libtool libltdl-dev autogen bison flex
+    - name: Install bdwgc
+      run: |
+           git clone https://github.com/ivmai/bdwgc
+           cd bdwgc
+           git clone https://github.com/ivmai/libatomic_ops
+           ./autogen.sh
+           ./configure
+           make
+           sudo make install
+
+    - name: Configure
+      run: |
+           mkdir gcjbuild
+           cd gcjbuild
+           ../gcj/configure --enable-languages=java
+
+    - name: Build
+      run: |
+           cd gcjbuild
+           make -j $(nproc)
+           make
