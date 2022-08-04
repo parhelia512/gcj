@@ -56,6 +56,7 @@ details.  */
 /* FIXME: we don't always need this.  The next libtool will let us use
    AC_LTDL_PREOPEN to see if we do.  */
 extern const lt_dlsymlist lt_preloaded_symbols[1] = { { 0, 0 } };
+static lt_dlinterface_id iface_id = 0;
 
 struct lookup_data
 {
@@ -77,7 +78,7 @@ _Jv_FindSymbolInExecutable (const char *symname)
   lookup_data data;
   data.symname = symname;
   data.result = NULL;
-  lt_dlforeach (find_symbol, (lt_ptr) &data);
+  lt_dlhandle_map (iface_id, find_symbol, (lt_ptr) &data);
   return data.result;
 }
 
@@ -257,6 +258,8 @@ java::lang::Runtime::init (void)
   lt_dlsetsearchpath (_Jv_Module_Load_Path);
   // Make sure self is opened.
   lt_dlopen (NULL);
+
+  iface_id = lt_dlinterface_register("id_string", NULL);
 #endif
 }
 
