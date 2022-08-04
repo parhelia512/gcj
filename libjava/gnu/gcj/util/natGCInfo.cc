@@ -78,7 +78,7 @@ struct gc_debug_info
 };
 
 static void
-GC_print_debug_callback(hblk *h, GC_word user_data)
+GC_print_debug_callback(GC_hblk_s *h, GC_word user_data)
 {
   hdr *hhdr = HDR(h);
   size_t bytes = ((hhdr -> hb_sz)*sizeof(GC_word));
@@ -92,7 +92,7 @@ GC_print_debug_callback(hblk *h, GC_word user_data)
 static void
 GC_print_hblkfreelist_file(FILE *fp)
 {
-  struct hblk * h;
+  GC_hblk_s * h;
   GC_word total_free = 0;
   hdr * hhdr;
   GC_word sz;
@@ -160,8 +160,8 @@ namespace
     int bytes_fd;
 
     void print_address_map();
-    void enumerate_callback(struct hblk *h);
-    static void enumerate_callback_adaptor(struct hblk *h, GC_word dummy);
+    void enumerate_callback(GC_hblk_s *h);
+    static void enumerate_callback_adaptor(GC_hblk_s *h, GC_word dummy);
   };
 }
 
@@ -282,7 +282,7 @@ GC_enumerator::enumerate()
 }
 
 void
-GC_enumerator::enumerate_callback_adaptor(struct hblk *h,
+GC_enumerator::enumerate_callback_adaptor(GC_hblk_s *h,
                                           GC_word dummy)
 {
   GC_enumerator* pinfo = (GC_enumerator*)dummy;
@@ -290,7 +290,7 @@ GC_enumerator::enumerate_callback_adaptor(struct hblk *h,
 }
 
 void
-GC_enumerator::enumerate_callback(struct hblk *h)
+GC_enumerator::enumerate_callback(GC_hblk_s *h)
 {
   size_t bytes = ((hhdr->hb_sz)*sizeof(GC_word));
   int i;
