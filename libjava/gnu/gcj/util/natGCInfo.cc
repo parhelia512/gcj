@@ -396,7 +396,7 @@ void
 
   J2A(name, n);
   oomDumpName = n;
-  GC_oom_fn = nomem_handler;
+  GC_set_oom_fn(nomem_handler);
 }
 
 #else  // HAVE_PROC_SELF_MAPS
