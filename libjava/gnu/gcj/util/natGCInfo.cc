@@ -57,7 +57,7 @@ extern "C" {
 #include "gc/gc_gcj.h"
 #include "gc/gc_mark.h"
   int GC_n_set_marks(hdr* hhdr);
-  ptr_t GC_clear_stack(ptr_t p);
+  void * GC_clear_stack(void * p);
   extern int GC_gcj_kind;
   extern int GC_gcj_debug_kind;
 }
