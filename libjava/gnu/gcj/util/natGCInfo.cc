@@ -102,15 +102,8 @@ GC_print_hblkfreelist_file(FILE *fp)
   for (i = 0; i <= N_HBLK_FLS; ++i)
     {
       h = GC_hblkfreelist[i];
-#ifdef USE_MUNMAP
       if (0 != h)
         fprintf (fp, "Free list %ld:\n", (unsigned long)i);
-#else
-      if (0 != h)
-        fprintf (fp, "Free list %ld (Total size %ld):\n",
-                 (unsigned long)i,
-                 (unsigned long)GC_free_bytes[i]);
-#endif
       while (h != 0)
         {
           hhdr = HDR(h);
@@ -129,13 +122,6 @@ GC_print_hblkfreelist_file(FILE *fp)
           h = hhdr -> hb_next;
         }
     }
-#ifndef USE_MUNMAP
-  if (total_free != GC_large_free_bytes)
-    {
-      fprintf (fp, "GC_large_free_bytes = %lu (INCONSISTENT!!)\n",
-               (unsigned long) GC_large_free_bytes);
-    }
-#endif
   fprintf (fp, "Total of %lu bytes on free list\n", (unsigned long)total_free);
   fprintf (fp, "---------- End free map ----------\n");
 }
