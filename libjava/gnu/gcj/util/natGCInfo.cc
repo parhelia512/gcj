@@ -25,46 +25,9 @@
 #include <string.h>
 #include <errno.h>
 
-//
-// Boehm GC includes.
-//
-#ifdef PACKAGE_NAME
-#undef PACKAGE_NAME
-#endif
-
-#ifdef PACKAGE_STRING
-#undef PACKAGE_STRING
-#endif
-
-#ifdef PACKAGE_TARNAME
-#undef PACKAGE_TARNAME
-#endif
-
-#ifdef PACKAGE_VERSION
-#undef PACKAGE_VERSION
-#endif
-
-#ifdef TRUE
-#undef TRUE
-#endif
-
-#ifdef FALSE
-#undef FALSE
-#endif
-
-extern "C" {
 #include "gc/gc.h"
 #include "gc/gc_gcj.h"
 #include "gc/gc_mark.h"
-  int GC_n_set_marks(hdr* hhdr);
-  void * GC_clear_stack(void * p);
-  extern int GC_gcj_kind;
-  extern int GC_gcj_debug_kind;
-}
-
-#endif
-
-#ifdef HAVE_PROC_SELF_MAPS
 
 static int gc_ok = 1;
 
@@ -80,13 +43,12 @@ struct gc_debug_info
 static void
 GC_print_debug_callback(GC_hblk_s *h, GC_word user_data)
 {
-  hdr *hhdr = HDR(h);
-  size_t bytes = ((hhdr -> hb_sz)*sizeof(GC_word));
+  size_t bytes;
 
   gc_debug_info *pinfo = (gc_debug_info *)user_data;
 
   fprintf(pinfo->fp, "ptr = %#lx, kind = %d, size = %zd, marks = %d\n",
-          (unsigned long)h, hhdr->hb_obj_kind, bytes, GC_n_set_marks(hhdr));
+          (unsigned long)h, GC_get_kind_and_size(h, &bytes), bytes, GC_count_set_marks_in_hblk(h));
 }
 
 static void
@@ -94,7 +56,6 @@ GC_print_hblkfreelist_file(FILE *fp)
 {
   GC_hblk_s * h;
   GC_word total_free = 0;
-  hdr * hhdr;
   GC_word sz;
   int i;
     
@@ -106,15 +67,14 @@ GC_print_hblkfreelist_file(FILE *fp)
         fprintf (fp, "Free list %ld:\n", (unsigned long)i);
       while (h != 0)
         {
-          hhdr = HDR(h);
-          sz = hhdr -> hb_sz;
+          sz = GC_size(h);
           fprintf (fp, "\t0x%lx size %lu ", (unsigned long)h,
                    (unsigned long)sz);
           total_free += sz;
 
           if (GC_is_black_listed (h, GC_get_hblk_size()) != 0)
             fprintf (fp, "start black listed\n");
-          else if (GC_is_black_listed(h, hhdr -> hb_sz) != 0)
+          else if (GC_is_black_listed(h, GC_size(h)) != 0)
             fprintf (fp, "partially black listed\n");
           else
             fprintf (fp, "not black listed\n");
@@ -292,14 +252,14 @@ GC_enumerator::enumerate_callback_adaptor(GC_hblk_s *h,
 void
 GC_enumerator::enumerate_callback(GC_hblk_s *h)
 {
-  size_t bytes = ((hhdr->hb_sz)*sizeof(GC_word));
+  size_t bytes;
   int i;
 
   for (i = 0; i == 0 || (i + bytes <= GC_get_hblk_size()); i += bytes)
     {
       int inUse = GC_is_marked((char*)h+i);                   // in use
       char *ptr = (char*)h+i;                                 // address
-      int kind = hhdr->hb_obj_kind;                           // kind
+      int kind = GC_get_kind_and_size(h, &bytes);             // kind
       void *klass = 0;
       void *data = 0;
       if (kind == GC_gcj_kind
