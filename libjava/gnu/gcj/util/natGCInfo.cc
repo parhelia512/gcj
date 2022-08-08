@@ -51,39 +51,49 @@ GC_print_debug_callback(GC_hblk_s *h, GC_word user_data)
           (unsigned long)h, GC_get_kind_and_size(h, &bytes), bytes, GC_count_set_marks_in_hblk(h));
 }
 
+struct print_hblkfl_s {
+  FILE *fp;
+  GC_word total_free;
+  int prev_index;
+};
+
+static void GC_CALLBACK print_hblkfl_file_item(struct GC_hblk_s *h, int i,
+                                               GC_word client_data)
+{
+  GC_word sz;
+  print_hblkfl_s *pdata = (print_hblkfl_s *)client_data;
+
+  if (pdata->prev_index != i) {
+    fprintf(pdata->fp, "Free list %d:\n", i);
+    pdata->prev_index = i;
+  }
+
+  sz = GC_size(h);
+  fprintf(pdata->fp, "\t0x%lx size %lu ", (unsigned long)h,
+           (unsigned long)sz);
+  pdata->total_free += sz;
+
+  if (GC_is_black_listed(h, GC_get_hblk_size()) != 0)
+    fprintf(pdata->fp, "start black listed\n");
+  else if (GC_is_black_listed(h, sz) != 0)
+    fprintf(pdata->fp, "partially black listed\n");
+  else
+    fprintf(pdata->fp, "not black listed\n");
+}
+
 static void
 GC_print_hblkfreelist_file(FILE *fp)
 {
-  GC_hblk_s * h;
-  GC_word total_free = 0;
-  GC_word sz;
-  int i;
+  print_hblkfl_s data;
+  data.fp = fp;
+  data.total_free = 0;
+  data.prev_index = -1;
     
   fprintf(fp, "---------- Begin free map ----------\n");
-  for (i = 0; i <= N_HBLK_FLS; ++i)
-    {
-      h = GC_hblkfreelist[i];
-      if (0 != h)
-        fprintf (fp, "Free list %ld:\n", (unsigned long)i);
-      while (h != 0)
-        {
-          sz = GC_size(h);
-          fprintf (fp, "\t0x%lx size %lu ", (unsigned long)h,
-                   (unsigned long)sz);
-          total_free += sz;
-
-          if (GC_is_black_listed (h, GC_get_hblk_size()) != 0)
-            fprintf (fp, "start black listed\n");
-          else if (GC_is_black_listed(h, GC_size(h)) != 0)
-            fprintf (fp, "partially black listed\n");
-          else
-            fprintf (fp, "not black listed\n");
-
-          h = hhdr -> hb_next;
-        }
-    }
-  fprintf (fp, "Total of %lu bytes on free list\n", (unsigned long)total_free);
-  fprintf (fp, "---------- End free map ----------\n");
+  GC_iterate_free_hblks(print_hblkfl_file_item, (GC_word)&data);
+  fprintf(fp, "Total of %lu bytes on free list\n",
+           (unsigned long)data.total_free);
+  fprintf(fp, "---------- End free map ----------\n");
 }
 
 static int GC_dump_count = 1;
