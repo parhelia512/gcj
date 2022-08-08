@@ -523,7 +523,7 @@ _Jv_InitGC (void)
   gc_initialized = 1;
 
   // Ignore pointers that do not point to the start of an object.
-  GC_all_interior_pointers = 0;
+  GC_set_all_interior_pointers(0);
 
 #if defined (HAVE_DLFCN_H) && defined (HAVE_DLADDR)
   // Tell the collector to ask us before scanning DSOs.
@@ -538,9 +538,9 @@ _Jv_InitGC (void)
 
   // Cause an out of memory error to be thrown from the allocators,
   // instead of returning 0.  This is cheaper than checking on allocation.
-  GC_oom_fn = handle_out_of_memory;
+  GC_set_oom_fn(handle_out_of_memory);
 
-  GC_java_finalization = 1;
+  GC_set_java_finalization(1);
 
   // We use a different mark procedure for object arrays. This code 
   // configures a different object `kind' for object array allocation and
@@ -597,8 +597,8 @@ _Jv_AllocTraceTwo (jsize size /* includes vtable slot */)
 void
 _Jv_GCInitializeFinalizers (void (*notifier) (void))
 {
-  GC_finalize_on_demand = 1;
-  GC_finalizer_notifier = notifier;
+  GC_set_finalize_on_demand(1);
+  GC_set_finalizer_notifier(notifier);
 }
 
 void
